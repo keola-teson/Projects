@@ -47,7 +47,7 @@ public class MontyHallGame
      * allows the player to type an input and stores that input as an int
      * @return choice variable
      */
-    public static int pickPlayerDoor()
+    private static int pickPlayerDoor()
     {
         //allows the player to type
         input = myScanner.next();
@@ -86,7 +86,7 @@ public class MontyHallGame
     /**
      * creates a random number generator and assigns the number it generates to winDoor
      */
-    public static void setWinningDoor()
+    private static void setWinningDoor()
     {
         winDoor = (int)(Math.random() * 3 + 1);
     }
@@ -94,7 +94,7 @@ public class MontyHallGame
     /**
      * sets the wrong door that is revealed in a later method
      */
-    public static void setWrongDoor()
+    private static void setWrongDoor()
     {
         /*
          * sets the value of the variable wrongDoor to a random number between 1 and 3
@@ -109,7 +109,7 @@ public class MontyHallGame
         }
     }
     
-    public static void setRemainingDoor()
+    private static void setRemainingDoor()
     {
     	/*
          * sets the value of the variable remainingDoor to a random number between 1 and 3
@@ -127,7 +127,7 @@ public class MontyHallGame
     /**
      * asks the player if they want to switch numbers
      */
-    public static void askSwitch()
+    private static void askSwitch()
     {
         //tells the player which door is wrong
         System.out.println("The door with no prize is " + wrongDoor);
