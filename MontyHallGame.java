@@ -18,23 +18,25 @@ public class MontyHallGame
     private static String input;
     private static int winDoor;
     private static int wrongDoor;
+    private static int remainingDoor;
 
     public static void main(String[] args)
     {
         //welcomes the player to the game
         System.out.println("Welcome to the Monty Hall problem. Pick a number from 1-3:");
 
-        //calls method setWinningDoor to allow the variable winDoor to be used in different classes
+        //calls method setWinningDoor to allow the method to store a value into winDoor
         setWinningDoor();
         //calls method pickPlayerDoor to allow the user to pick a number and store that choice in choice variable
         pickPlayerDoor();
         //calls method setWrongDoor to allow the variable wrongDoor to be used in different classes
         setWrongDoor();
+        //calls method setRemainingDoor to allow the method to store a value into remainingDoor variable
+        setRemainingDoor();
         //calls method askSwitch to ask the player if they want to switch
         askSwitch();
-        //calls method winOrLose to tell the player whether they won or not
-        winOrLose();
-
+        
+        
         //closes the scanner object instantiated in the data attributes
         myScanner.close();
     }
@@ -60,17 +62,17 @@ public class MontyHallGame
          * - returns the choice variable
          * if all checks return false, prompts the player to reinput something. calls the method again
          */
-        if (input.equals("one") || input.equals("1"))
+        if (input.equalsIgnoreCase("one") || input.equals("1"))
         {
             choice = 1;
             return choice;
         }
-        else if (input.equals("two") || input.equals("2"))
+        else if (input.equalsIgnoreCase("two") || input.equals("2"))
         {
             choice = 2;
             return choice;
         }
-        else if (input.equals("three") || input.equals("3"))
+        else if (input.equalsIgnoreCase("three") || input.equals("3"))
         {
             choice = 3;
             return choice;
@@ -85,6 +87,7 @@ public class MontyHallGame
     public static void setWinningDoor()
     {
         winDoor = (int)(Math.random() * 3 + 1);
+        System.out.println(winDoor);
     }
 
     /**
@@ -103,6 +106,21 @@ public class MontyHallGame
         {
             setWrongDoor();
         }
+    }
+    
+    public static void setRemainingDoor()
+    {
+    	/*
+         * sets the value of the variable remainingDoor to a random number between 1 and 3
+         * checks if remainingDoor is the same as variables winDoor, wrongDoor, and choice
+         * - if the check is true, randomizes the number again and recalls this method to loop it
+         * if the check is false, return remainingDoor
+         */
+    	remainingDoor = (int)(Math.random() * 3 + 1);
+    	if (remainingDoor == wrongDoor || remainingDoor == choice)
+    	{
+    		setRemainingDoor();
+    	}
     }
 
     /**
@@ -125,21 +143,22 @@ public class MontyHallGame
 
             /*
              * checks if the player inputted "yes"
-             * - if the check is true, prompts the user to pick a new door and calls the pickPlayerDoor method.
-             *   switches switchDoor variable to true to leave the while statement
+             * - if the check is true, goes to method winOrLoseYes and switches switchDoor variable to 
+             *   true to leave the while statement
              * if the check is false, checks if the player inputted "no"
-             * - if the check is true, switches switchDoor variable to true to leave the while statement
+             * - if the check is true, goes to method winOrLoseNo and switches switchDoor variable to 
+             *   true to leave the while statement
              * if all checks fail, prompts the user to input yes or no
              */
             if (input.equalsIgnoreCase("yes"))
             {
-                System.out.println("Please pick a new door.");
-                pickPlayerDoor();
-                switchDoor = true;
+                winOrLoseYes();
+            	switchDoor = true;
             }
             else if (input.equalsIgnoreCase("no"))
             {
                 switchDoor = true;
+                winOrLoseNo();
             }
             else
             {
@@ -151,19 +170,28 @@ public class MontyHallGame
     /**
      * method to tell the user if they won or lost
      */
-    public static void winOrLose()
+    public static void winOrLoseNo()
     {
-        /*
-         * checks if the value in the choice variable is the same as the value in the winDoor variable
-         * - if yes, tells the player they won :)
-         * if the check is false, tells the player they lost :(
-         */
-        if (choice == winDoor)
+    	if (choice == winDoor)
         {
             System.out.println("You win! :)");
             System.out.println("The winning door was " + winDoor);
         }
         else
+        {
+            System.out.println("You lose. :(");
+            System.out.println("The winning door was " + winDoor);
+        }
+    }
+    
+    private static void winOrLoseYes()
+    {
+    	if (remainingDoor == winDoor)
+    	{
+    		System.out.println("You win! :)");
+            System.out.println("The winning door was " + winDoor);
+    	}
+    	else
         {
             System.out.println("You lose. :(");
             System.out.println("The winning door was " + winDoor);
