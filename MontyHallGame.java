@@ -77,19 +77,16 @@ public class MontyHallGame
 
     /**
      * creates a random number generator and assigns the number it generates to winDoor
-     * @return winDoor variable
      */
-    public static int setWinningDoor()
+    public static void setWinningDoor()
     {
         winDoor = (int)(Math.random() * 3 + 1);
-        return winDoor;
     }
 
     /**
      * sets the wrong door that is revealed in a later method
-     * @return wrongDoor variables
      */
-    public static int setWrongDoor()
+    public static void setWrongDoor()
     {
         /*
          * sets the value of the variable wrongDoor to a random number between 1 and 3
@@ -102,7 +99,6 @@ public class MontyHallGame
         {
             setWrongDoor();
         }
-        return wrongDoor;
     }
 
     /**
