@@ -98,9 +98,8 @@ public class MontyHallGame
          * if the check is false, return wrongDoor
          */
         wrongDoor = (int)(Math.random() * 3 + 1);
-        if (wrongDoor == winDoor && wrongDoor == choice)
+        if (wrongDoor == winDoor || wrongDoor == choice)
         {
-            wrongDoor = (int) (Math.random() * 3 + 1);
             setWrongDoor();
         }
         return wrongDoor;
