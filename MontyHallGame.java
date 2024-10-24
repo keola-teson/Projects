@@ -7,6 +7,8 @@ import java.util.*;
 public class MontyHallGame
 {
     /*
+     * class attributes:
+     * -----------------
      * the following variables and objects are used in the game:
      *  - choice (used to store the value the player inputs)
      *  - myScanner (scanner object)
@@ -87,7 +89,6 @@ public class MontyHallGame
     public static void setWinningDoor()
     {
         winDoor = (int)(Math.random() * 3 + 1);
-        System.out.println(winDoor);
     }
 
     /**
@@ -170,8 +171,14 @@ public class MontyHallGame
     /**
      * method to tell the user if they won or lost
      */
-    public static void winOrLoseNo()
+    private static void winOrLoseNo()
     {
+    	/*
+    	 * checks if the choice variable is the same as the winDoor variable
+    	 * - tells the player they won and reveals which door is the winning door
+    	 * if the check fails
+    	 * - tells the player they lost and reveals which door is the winning door
+    	 */
     	if (choice == winDoor)
         {
             System.out.println("You win! :)");
@@ -186,6 +193,12 @@ public class MontyHallGame
     
     private static void winOrLoseYes()
     {
+    	/*
+    	 * checks if the remainingDoor variable is the same as the winDoor variable
+    	 * - tells the player they won and reveals which door is the winning door
+    	 * if the check fails
+    	 * - tells the player they lost and reveals which door is the winning door
+    	 */
     	if (remainingDoor == winDoor)
     	{
     		System.out.println("You win! :)");
