@@ -26,8 +26,8 @@ public class MontyHallGame
 
         //calls method pickPlayerDoor() and askSwitch()
         setWinningDoor();
-        setWrongDoor();
         pickPlayerDoor();
+        setWrongDoor();
         askSwitch();
         winOrLose();
 
