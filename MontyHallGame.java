@@ -24,11 +24,15 @@ public class MontyHallGame
         //welcomes the player to the game
         System.out.println("Welcome to the Monty Hall problem. Pick a number from 1-3:");
 
-        //calls method pickPlayerDoor() and askSwitch()
+        //calls method setWinningDoor to allow the variable winDoor to be used in different classes
         setWinningDoor();
+        //calls method pickPlayerDoor to allow the user to pick a number and store that choice in choice variable
         pickPlayerDoor();
+        //calls method setWrongDoor to allow the variable wrongDoor to be used in different classes
         setWrongDoor();
+        //calls method askSwitch to ask the player if they want to switch
         askSwitch();
+        //calls method winOrLose to tell the player whether they won or not
         winOrLose();
 
         //closes the scanner object instantiated in the data attributes
