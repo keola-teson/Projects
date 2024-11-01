@@ -4,7 +4,7 @@ import java.util.Scanner;
  * This class is a simplified recreation of wordle. This is a project for my AP Comp Sci class
  * @author Keola Teson :)
  */
-public class WordleGame
+public class WordleGameSimple
 {
 	/*
 	 * Data Attributes
