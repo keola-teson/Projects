@@ -121,9 +121,9 @@ public class WordleGameSimple
 		 * if the check is false and the first letter in the input and the first letter in the input are the
 		 * same
 		 */
-		if (firstSoln != first)
+		if (first != firstSoln)
 		{
-			if (firstSoln == second|| firstSoln == third || firstSoln == fourth || firstSoln == fifth)
+			if (first == secondSoln|| first == thirdSoln || first == fourthSoln || first == fifthSoln)
 			{
 				System.out.print('?');
 			}
@@ -134,7 +134,7 @@ public class WordleGameSimple
 		}
 		else
 		{
-			System.out.print(firstSoln);
+			System.out.print(first);
 		}
 		
 		
@@ -146,9 +146,9 @@ public class WordleGameSimple
 		 * if the check is false and the second letter in the input and the second letter in the input are
 		 * the same
 		 */
-		if (secondSoln != second)
+		if (second != secondSoln)
 		{
-			if (secondSoln == first || secondSoln == third || secondSoln == fourth || secondSoln == fifth)
+			if (second == firstSoln || second == thirdSoln || second == fourthSoln || second == fifthSoln)
 			{
 				System.out.print('?');
 			}
@@ -159,7 +159,7 @@ public class WordleGameSimple
 		}
 		else
 		{
-			System.out.print(secondSoln);
+			System.out.print(second);
 		}
 		
 		/*
@@ -170,9 +170,9 @@ public class WordleGameSimple
 		 * if the check is false and the third letter in the input and the third letter in the input are the
 		 * same
 		 */
-		if (thirdSoln != third)
+		if (third != thirdSoln)
 		{
-			if (thirdSoln == first || thirdSoln == second || thirdSoln == fourth || thirdSoln == fifth)
+			if (third == firstSoln || third == secondSoln || third == fourthSoln || third == fifthSoln)
 			{
 				System.out.print('?');
 			}
@@ -183,7 +183,7 @@ public class WordleGameSimple
 		}
 		else
 		{
-			System.out.print(thirdSoln);
+			System.out.print(third);
 		}
 		
 		/*
@@ -194,9 +194,9 @@ public class WordleGameSimple
 		 * if the check is false and the fourth letter in the input and the fourth letter in the input are 
 		 * the same
 		 */
-		if (fourthSoln != fourth)
+		if (fourth != fourthSoln)
 		{
-			if (fourthSoln == first || fourthSoln == second || fourthSoln == third || fourthSoln == fifth)
+			if (fourth == firstSoln || fourth == secondSoln || fourth == thirdSoln || fourth == fifthSoln)
 			{
 				System.out.print('?');
 			}
@@ -207,7 +207,7 @@ public class WordleGameSimple
 		}
 		else
 		{
-			System.out.print(fourthSoln);
+			System.out.print(fourth);
 		}
 		
 		/*
@@ -218,9 +218,9 @@ public class WordleGameSimple
 		 * if the check is false and the fifth letter in the input and the fifth letter in the input are the
 		 * same
 		 */
-		if (fifthSoln != fifth)
+		if (fifth != fifthSoln)
 		{
-			if (fifthSoln == first || fifthSoln == second || fifthSoln == third || fifthSoln == fourth)
+			if (fifth == firstSoln || fifth == secondSoln || fifth == thirdSoln || fifth == fourthSoln)
 			{
 				System.out.println('?');
 			}
@@ -231,7 +231,7 @@ public class WordleGameSimple
 		}
 		else
 		{
-			System.out.println(fifthSoln);
+			System.out.println(fifth);
 		}
 		
 		/*
@@ -253,7 +253,7 @@ public class WordleGameSimple
 	
 	/**
 	 * This method randomizes the solution for the word
-	 */
+	*/
 	public static void solnChooser()
 	{
 		//makes an array variable with different words to choose from
