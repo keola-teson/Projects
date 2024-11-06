@@ -27,30 +27,43 @@ public class WordleGameSimple
 		//calls solnChooser method to randomizer the word the player has to guess
 		solnChooser();
 		
+		//sets i to 6
 		i = 6;
+		//while loop for rounds
 		while (i > 0)
 		{
+			//says the amount of rounds left
 			System.out.println("Rounds left (" + i + ")");
 			//calls checkReps class to allow the player to type
 			checkReps();
+			//checks if i == 0
 			if (i == 0)
 			{
+				//asks the player if they want to play again
 				System.out.println("No more rounds. Wanna play again?");
+				//calls playAgain method
 				playAgain();
 			}
 		}
 		
 	}
 	
+	/**
+	 * to change the variable i
+	 */
 	public static void playAgain()
 	{
+		//allows the player to type
 		input = myScanner.nextLine();
+		//checks if the input is yes
 		if (input.equalsIgnoreCase("yes"))
 		{
+			//sets i to 6
 			i = 6;
 		}
 		else
 		{
+			//if check is false, bye bye
 			System.out.println("Goodbye.");
 		}
 	}
