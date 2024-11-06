@@ -17,6 +17,7 @@ public class WordleGameSimple
 	static Scanner myScanner = new Scanner(System.in);
 	static String soln;
 	static String input;
+	static int i;
 	
 	public static void main(String[] args)
 	{
@@ -26,8 +27,32 @@ public class WordleGameSimple
 		//calls solnChooser method to randomizer the word the player has to guess
 		solnChooser();
 		
-		//calls checkReps class to allow the player to type
-		checkReps();
+		i = 6;
+		while (i > 0)
+		{
+			System.out.println("Rounds left (" + i + ")");
+			//calls checkReps class to allow the player to type
+			checkReps();
+			if (i == 0)
+			{
+				System.out.println("No more rounds. Wanna play again?");
+				playAgain();
+			}
+		}
+		
+	}
+	
+	public static void playAgain()
+	{
+		input = myScanner.nextLine();
+		if (input.equalsIgnoreCase("yes"))
+		{
+			i = 6;
+		}
+		else
+		{
+			System.out.println("Goodbye.");
+		}
 	}
 	
 	/**
@@ -247,7 +272,7 @@ public class WordleGameSimple
 		}
 		else
 		{
-			checkReps();
+			i--;
 		}
 	}
 	
