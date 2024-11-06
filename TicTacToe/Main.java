@@ -34,11 +34,7 @@ public class Main
     static ArrayList<Integer> rowInputHistory = new ArrayList<>();
     static ArrayList<Integer> columnInputHistory = new ArrayList<>();
     static int i;
-
-    public Main()
-    {
-
-    }
+    static Opponent opponent = new Opponent();
 
     /**
      * Main method
@@ -49,14 +45,39 @@ public class Main
         //welcomes the player to the game
         System.out.println("Welcome to Tic-Tac-Toe");
 
-        for (i = 0; i < 9; i++)
+        //to let the players play until either someone wins or they tie
+        for (i = 1; i < 9; i++)
         {
+            /*
+             * tie check.
+             * small enough to put into the main method (I couldn't make it work outside)
+             */
+            if (rowOne[0] != 32 && rowOne[1] != 32 && rowOne[2] != 32 &&
+                    rowTwo[0] != 32 && rowTwo[1] != 32 && rowTwo[2] != 32 &&
+                    rowThree[0] != 32 && rowThree[1] != 32 && rowThree[2] != 32)
+            {
+                System.out.println("Tie. You both suck.");
+                break;
+            }
             //calls the playGame method and runs the code in it. also stores the value of rowInput and columnInput vars
             playGame();
+            //checks if player one won
             youWin();
         }
         //closes the scanner
         myScanner.close();
+    }
+
+    public static void printBoard()
+    {
+        /*
+         * wraps the arrays in the .toString class to print out each array into the console
+         */
+        System.out.println("   a  b  c");
+        System.out.println("1 " + Arrays.toString(rowOne));
+        System.out.println("2 " + Arrays.toString(rowTwo));
+        System.out.println("3 " + Arrays.toString(rowThree));
+        System.out.print("\n");
     }
 
     /**
@@ -64,13 +85,11 @@ public class Main
      */
     public static void playGame()
     {
-        /*
-         * wraps the arrays in the .toString class to print out each array into the console
-         */
-        System.out.println(Arrays.toString(rowOne));
-        System.out.println(Arrays.toString(rowTwo));
-        System.out.println(Arrays.toString(rowThree));
-        System.out.print("\n");
+        //calls the printBoard method to print the board
+        printBoard();
+
+        //says whose turn it is
+        System.out.println("Player One's Turn \n-----------------");
 
         /*
          * allows the player to select a row they want to place an X in and adds that value to the rowInputHistory
@@ -93,6 +112,9 @@ public class Main
 
         //calls the modifyArrays method
         modifyArrays(rowInput, columnInput);
+
+        //calls the opponent class and lets player 2 play
+        opponent.playOpp();
     }
 
     /**
@@ -173,22 +195,19 @@ public class Main
     }
 
     /**
-     * This method is awful. You could probably do this sooooo much easier but I don't care.
+     * This method is awful. You could probably do this sooooo much easier, but I don't care.
      * This method does a bunch of checks and tells you "you win" if any of them are true
      */
     public static void youWin()
     {
         /*
-         * checks if the first char in the first array, the second char in the first array, and the third char in the 
+         * checks if the first char in the first array, the second char in the first array, and the third char in the
          * first array are all 'X'
          * If they are print the final table and tell the player they won
          */
         if (rowOne[0] == 'X' && rowOne[1] == 'X' && rowOne[2] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -200,10 +219,7 @@ public class Main
          */
         else if (rowTwo[0] == 'X' && rowTwo[1] == 'X' && rowTwo[2] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -215,10 +231,7 @@ public class Main
          */
         else if (rowThree[0] == 'X' && rowThree[1] == 'X' && rowThree[2] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -230,10 +243,7 @@ public class Main
          */
         else if (rowOne[0] == 'X' && rowTwo[0] == 'X' && rowThree[0] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -245,10 +255,7 @@ public class Main
          */
         else if (rowOne[1] == 'X' && rowTwo[1] == 'X' && rowThree[1] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -260,10 +267,7 @@ public class Main
          */
         else if (rowOne[2] == 'X' && rowTwo[2] == 'X' && rowThree[2] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -275,10 +279,7 @@ public class Main
          */
         else if (rowOne[0] == 'X' && rowTwo[1] == 'X' && rowThree[2] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
@@ -290,10 +291,7 @@ public class Main
          */
         else if (rowOne[2] == 'X' && rowTwo[1] == 'X' && rowThree[0] == 'X')
         {
-            System.out.println(Arrays.toString(rowOne));
-            System.out.println(Arrays.toString(rowTwo));
-            System.out.println(Arrays.toString(rowThree));
-            System.out.print("\n");
+            printBoard();
             System.out.println("You Win!");
             //sets i variable to 10 to end the for loop
             i = 10;
