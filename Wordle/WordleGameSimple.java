@@ -282,6 +282,7 @@ public class WordleGameSimple
 		if (ifCorrect.equals(soln))
 		{
 			System.out.println("You win!");
+			i = -1;
 		}
 		else
 		{
