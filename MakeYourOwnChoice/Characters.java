@@ -73,7 +73,7 @@ public class Characters
 			
 			//default: if the string that gets given to occupation isn't any of the cases, generate an error bc this is temporary
 			default:
-				return getCharacterAttributes();
+				return playerAttributes();
 		}
 	}
 	
@@ -82,7 +82,7 @@ public class Characters
 	 * This method generates attributes to the partner character
 	 * @return attributes string[]
 	 */
-	public String[] partnerAttributes()
+	private String[] partnerAttributes()
 	{	
 		/*
 		 * gives a value to:
@@ -90,7 +90,7 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
 		age = 27;
 		name = "Harry Freeman";
@@ -118,7 +118,7 @@ public class Characters
 	 * This method generates attributes to the captain character
 	 * @return attributes string[]
 	 */
-	public String[] captainAttributes()
+	private String[] captainAttributes()
 	{
 		/*
 		 * gives a value to:
@@ -126,7 +126,7 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
 		age = 50;
 		name = "Steven Anders";
@@ -154,7 +154,7 @@ public class Characters
 	 * This method generates attributes to the roommate character
 	 * @return attributes string[]
 	 */
-	public String[] roommateAttributes()
+	private String[] roommateAttributes()
 	{
 		/*
 		 * gives a value to:
@@ -162,7 +162,7 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
 		age = 22;
 		name = "Wallice West";
@@ -190,7 +190,7 @@ public class Characters
 	 * This method generates attributes to the barista character
 	 * @return attributes string[]
 	 */
-	public String[] baristaAttributes()
+	private String[] baristaAttributes()
 	{
 		/*
 		 * gives a value to:
@@ -198,7 +198,7 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
 		age = 24;
 		name = "Ruby Hesser";
@@ -226,7 +226,7 @@ public class Characters
 	 * This method generates attributes to the forensics character
 	 * @return attributes string[]
 	 */
-	public String[] forensicsAttributes()
+	private String[] forensicsAttributes()
 	{
 		/*
 		 * gives a value to:
@@ -234,7 +234,7 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
 		age = 31;
 		name = "Alex Payne";
@@ -262,7 +262,7 @@ public class Characters
 	 * This method generates attributes to the murderer character
 	 * @return attributes string[]
 	 */
-	public String[] murdererAttributes()
+	private String[] murdererAttributes()
 	{
 		/*
 		 * gives a value to:
@@ -270,7 +270,7 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
 		String age = "Unknown";
 		name = "Unknown";
@@ -298,7 +298,7 @@ public class Characters
 	 * This method generates attributes to the bum character
 	 * @return attributes string[]
 	 */
-	public String[] bumAttributes()
+	private String[] bumAttributes()
 	{
 		/*
 		 * gives a value to:
@@ -306,13 +306,50 @@ public class Characters
 		 * - name
 		 * - occupation
 		 * - hobby
-		 * - avorite
+		 * - favorite
 		 */
-		age = 25;
+		age = 22;
 		name = "Keola Teson";
 		occupation = "Bum";
 		hobby = "Exploring";
 		favorite = "Ruby Hesser";
+		
+		//creates a string array
+		String[] attributes = new String[5];
+		
+		/*
+		 * adds those character attributes to the array
+		 */
+		attributes[0] = "" + age;
+		attributes[1] = name;
+		attributes[2] = occupation;
+		attributes[3] = hobby;
+		attributes[4] = favorite;
+		
+		//returns the string array
+		return attributes;
+	}
+	
+	/**
+	 * This method generates attributes to the player character
+	 * currently displays nothing for everying by age and occupation *that will change in the future*
+	 * @return attributes string[]
+	 */
+	public String[] playerAttributes()
+	{
+		/*
+		 * gives a value to:
+		 * - age
+		 * - name
+		 * - occupation
+		 * - hobby
+		 * - favorite
+		 */
+		age = 25;
+		name = "";
+		occupation = "Detective";
+		hobby = "";
+		favorite = "";
 		
 		//creates a string array
 		String[] attributes = new String[5];
