@@ -14,29 +14,8 @@ public class Game
 		//calls the callSetUpClass method
 		callSetUpClass();
 		
-		/*
-		 * *THIS IS A TEST*
-		 * instantiates all my character objects and puts their occupation in the parameters
-		 */
-		Characters partner = new Characters("partner");
-		Characters captain = new Characters("captain");
-		Characters roommate = new Characters("roommate");
-		Characters barista = new Characters("barista");
-		Characters forensics = new Characters("forensics");
-		Characters murderer = new Characters("murderer");
-		Characters bum = new Characters("bum");
-		
-		/*
-		 * *THIS IS A TEST*
-		 * calls the getCharacterAttributes class to get the attributes of the character
-		 */
-		System.out.println(Arrays.toString(partner.getCharacterAttributes()));
-		System.out.println(Arrays.toString(captain.getCharacterAttributes()));
-		System.out.println(Arrays.toString(roommate.getCharacterAttributes()));
-		System.out.println(Arrays.toString(barista.getCharacterAttributes()));
-		System.out.println(Arrays.toString(forensics.getCharacterAttributes()));
-		System.out.println(Arrays.toString(murderer.getCharacterAttributes()));
-		System.out.println(Arrays.toString(bum.getCharacterAttributes()));
+		//calls the callCharactersClass method
+		callCharactersClass();
 		
 		//closes scanner
 		gameScanner.close();
@@ -58,13 +37,11 @@ public class Game
 		 * if the player doesn't put anything in it, the player is automatically named "John Doe".
 		 */
 		String playerName = gameScanner.nextLine();
-		int checkForSpace = playerName.indexOf(' ');
-		if (checkForSpace > -1)
+		if (playerName.indexOf(' ') > -1)
 		{
-			playerName = playerName.substring(0, checkForSpace);
+			playerName = playerName.substring(0, playerName.indexOf(' '));
 		}
-		int JohnDoe = playerName.length();
-		if (JohnDoe <= 0)
+		if (playerName.length() <= 0)
 		{
 			playerName = "John Doe";
 		}
@@ -90,13 +67,37 @@ public class Game
 		 */
 		if(playerYesOrNo.equalsIgnoreCase("yes") || playerYesOrNo.equalsIgnoreCase("no"))
 		{
-		//gives exposition to help the player understand
-		System.out.println(SetUpOfGame.giveExposition());
+			//gives exposition to help the player understand
+			System.out.println(SetUpOfGame.giveExposition());
 		}
 	}
 	
-	public static void callCharacterClass()
+	public static void callCharactersClass()
 	{
+		/*
+		 * *THIS IS A TEST*
+		 * instantiates all my character objects and puts their occupation in the parameters
+		 */
+		Characters partner = new Characters("partner");
+		Characters captain = new Characters("captain");
+		Characters roommate = new Characters("roommate");
+		Characters barista = new Characters("barista");
+		Characters forensics = new Characters("forensics");
+		Characters murderer = new Characters("murderer");
+		Characters bum = new Characters("bum");
+		Characters player = new Characters("player");
 		
+		/*
+		 * *THIS IS A TEST*
+		 * calls the getCharacterAttributes class to get the attributes of the character
+		 */
+		System.out.println(Arrays.toString(partner.getCharacterAttributes()));
+		System.out.println(Arrays.toString(captain.getCharacterAttributes()));
+		System.out.println(Arrays.toString(roommate.getCharacterAttributes()));
+		System.out.println(Arrays.toString(barista.getCharacterAttributes()));
+		System.out.println(Arrays.toString(forensics.getCharacterAttributes()));
+		System.out.println(Arrays.toString(murderer.getCharacterAttributes()));
+		System.out.println(Arrays.toString(bum.getCharacterAttributes()));
+		System.out.println(Arrays.toString(player.getCharacterAttributes()));
 	}
 }
