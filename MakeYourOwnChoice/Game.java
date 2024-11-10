@@ -1,8 +1,8 @@
 import java.util.Arrays;
 import java.util.Scanner;
 /**
- * @author Keola Teson
- * @author Daniel Bertubin (he helped a little with things I don't understand)
+ * This is where the game is played.
+ * @author Keola Teson :)
  */
 public class Game
 {
@@ -31,33 +31,29 @@ public class Game
 		//welcomes player by calling a static method from a SetUpOfGame class
 		System.out.println(SetUpOfGame.welcomePlayer());
 		
-		/*
-		 * allows players to type in their name.
-		 * if the player has a space in their name, it prints only up to that space.
-		 * if the player doesn't put anything in it, the player is automatically named "John Doe".
-		 */
+		//allows the player to input their name
 		String playerName = gameScanner.nextLine();
-		if (playerName.indexOf(' ') > -1)
+		//checks if there is a space in the name
+		if (playerName.indexOf(' ') != -1)
 		{
+			//only stores the first name
 			playerName = playerName.substring(0, playerName.indexOf(' '));
 		}
-		if (playerName.length() <= 0)
+		//checks if the length is 0
+		if (playerName.length() == 0)
 		{
+			//automatically sets name to John Doe
 			playerName = "John Doe";
 		}
-		System.out.println(setUpOfGame.checkName(playerName));
-		if (playerName.equalsIgnoreCase("Daniel") || playerName.equalsIgnoreCase("Ella")
-				|| playerName.equalsIgnoreCase("Amber") || playerName.equalsIgnoreCase("Trauger")
-				|| playerName.equalsIgnoreCase("Keola"))
-		{
-			System.out.println("Hey I think I know someone with that name...");
-		}
 		
-		/*
-		 * asks the player if they know what the game is about
-		 */
+		//calls and prints the checkName method with the playerName object passed
+		System.out.println(setUpOfGame.checkName(playerName));
+		
+		//calls the askQuestion method from the SetUpOfGame class
 		System.out.println(SetUpOfGame.askQuestion());
+		//allows the player to type an answer
 		String playerYesOrNo = gameScanner.nextLine();
+		//prints a response based on if the player printed yes or no
 		System.out.print(setUpOfGame.answerQuestion(playerYesOrNo));
 		
 		/*
