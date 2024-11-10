@@ -42,6 +42,9 @@ public class Game
 		gameScanner.close();
 	}
 	
+	/**
+	 * this method calls the setUpOfGame class
+	 */
 	public static void callSetUpClass()
 	{
 		SetUpOfGame setUpOfGame = new SetUpOfGame();
@@ -80,7 +83,7 @@ public class Game
 		String playerYesOrNo = gameScanner.nextLine();
 		System.out.print(setUpOfGame.answerQuestion(playerYesOrNo));
 		
-		/**
+		/*
 		 * checks if the player inputted yes or no.
 		 * if the check is true, the player plays the game and continues to the giveExposition method
 		 * if the check is false, the game ends.
