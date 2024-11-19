@@ -15,7 +15,7 @@ public class Characters
 	 * - hobby
 	 * - favorite (their favorite thing in the world (usually tied to their hobby))
 	 */
-	private int age;
+	private String age;
 	private String occupation;
 	private String name;
 	private String hobby;
@@ -25,10 +25,13 @@ public class Characters
 	 * Constructor for the class to allow the class to be called in different classes
 	 * @param occ
 	 */
-	public Characters(String occ)
+	public Characters(String charName, String charAge, String occ, String hob, String fav)
 	{
-		//sets the occupation String object to the occ String parameter
-		this.occupation = occ;
+		age = charAge;
+		occupation = occ;
+		name = charName;
+		hobby = hob;
+		favorite = fav;
 	}
 	
 	/**
@@ -37,333 +40,48 @@ public class Characters
 	 */
 	public String[] getCharacterAttributes()
 	{
-		/*
-		 * This switch statement ties the value given to the occupation variable when the class was being called to a method.
-		 * Makes it so when this class gets called, what gets returned is the value that is returned in the methods it ties the occupation object to.
-		 */
-		switch (occupation.toLowerCase())
-		{
-			//case 1: if the string "partner" is given to occupation, call partnerAttributes()
-			case "partner":
-				return partnerAttributes();
-				
-			//case 2: if the string "captain" is given to occupation, call captainAttributes()
-			case "captain":
-				return captainAttributes();
-			
-			//case 3: if the string "roommate" is given to occupation, call roommateAttributes()
-			case "roommate":
-				return roommateAttributes();
-			
-			//case 4: if the string "barista" is given to occupation, call baristaAttributes()
-			case "barista":
-				return baristaAttributes();
-			
-			//case 5: if the string "forensics" is given to occupation, call forensicsAttributes()
-			case "forensics":
-				return forensicsAttributes();
-			
-			//case 6: if the string "murderer" is given to occupation, call murdererAttributes()
-			case "murderer":
-				return murdererAttributes();
-			
-			//case 7: if the string "bum" is given to occupation, call bumAttributes()
-			case "bum":
-				return bumAttributes();
-			
-			//default: if the string that gets given to occupation isn't any of the cases, generate an error bc this is temporary
-			default:
-				return playerAttributes();
-		}
-	}
-	
-	
-	/**
-	 * This method generates attributes to the partner character
-	 * @return attributes string[]
-	 */
-	private String[] partnerAttributes()
-	{	
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 27;
-		name = "Harry Freeman";
-		occupation = "Detective";
-		hobby = "Photography";
-		favorite = "Sunsets";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
+		String[] attributes = {name, age, occupation, hobby, favorite};
 		return attributes;
 	}
-	
+
 	/**
-	 * This method generates attributes to the captain character
-	 * @return attributes string[]
+	 * Setter for age data attribute
+	 * @param age
 	 */
-	private String[] captainAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 50;
-		name = "Steven Anders";
-		occupation = "Police Captain";
-		hobby = "Fishing";
-		favorite = "Beaches";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	/**
+	 * Setter for occupation data attribute
+	 * @return occupation
+	 */
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	/**
+	 * Setter for name data attribute
+	 * @return name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Setter for hobby data attribute
+	 * @return hobby
+	 */
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+
+	/**
+	 * Setter for favorite data attribute
+	 * @return favorite
+	 */
+	public void setFavorite(String favorite) {
+		this.favorite = favorite;
 	}
 	
-	/**
-	 * This method generates attributes to the roommate character
-	 * @return attributes string[]
-	 */
-	private String[] roommateAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 22;
-		name = "Wallice West";
-		occupation = "Unemployed";
-		hobby = "Collecting";
-		favorite = "Mint condition Miku figure";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
-	}
-	
-	/**
-	 * This method generates attributes to the barista character
-	 * @return attributes string[]
-	 */
-	private String[] baristaAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 24;
-		name = "Ruby Hesser";
-		occupation = "Barista";
-		hobby = "Dancing";
-		favorite = "Cats";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
-	}
-	
-	/**
-	 * This method generates attributes to the forensics character
-	 * @return attributes string[]
-	 */
-	private String[] forensicsAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 31;
-		name = "Alex Payne";
-		occupation = "Forensic Scientist";
-		hobby = "Gardening";
-		favorite = "Begonia";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
-	}
-	
-	/**
-	 * This method generates attributes to the murderer character
-	 * @return attributes string[]
-	 */
-	private String[] murdererAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		String age = "Unknown";
-		name = "Unknown";
-		occupation = "Unknown";
-		hobby = "Unknown";
-		favorite = "Unknown";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
-	}
-	
-	/**
-	 * This method generates attributes to the bum character
-	 * @return attributes string[]
-	 */
-	private String[] bumAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 22;
-		name = "Keola Teson";
-		occupation = "Bum";
-		hobby = "Exploring";
-		favorite = "Ruby Hesser";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
-	}
-	
-	/**
-	 * This method generates attributes to the player character
-	 * currently displays nothing for everying by age and occupation *that will change in the future*
-	 * @return attributes string[]
-	 */
-	public String[] playerAttributes()
-	{
-		/*
-		 * gives a value to:
-		 * - age
-		 * - name
-		 * - occupation
-		 * - hobby
-		 * - favorite
-		 */
-		age = 25;
-		name = "";
-		occupation = "Detective";
-		hobby = "";
-		favorite = "";
-		
-		//creates a string array
-		String[] attributes = new String[5];
-		
-		/*
-		 * adds those character attributes to the array
-		 */
-		attributes[0] = "" + age;
-		attributes[1] = name;
-		attributes[2] = occupation;
-		attributes[3] = hobby;
-		attributes[4] = favorite;
-		
-		//returns the string array
-		return attributes;
-	}
 }
