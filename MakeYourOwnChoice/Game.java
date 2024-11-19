@@ -14,6 +14,7 @@ public class Game
 		//calls the callSetUpClass method
 		Dialogue.callSetUpClass();
 		
+		//calls the makeFirstScene method to play scene 1
 		Dialogue.makeFirstScene();
 		
 		//closes scanner
