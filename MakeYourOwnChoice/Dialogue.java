@@ -108,7 +108,7 @@ public class Dialogue
 		}
 		playerFile.writeIntoFile(playerData);
 		
-		playerArray[0] = playerFile.readFile(FileManager.tempFile(playerFile.getPath(), playerFile.getFileName())).nextLine();
+		playerArray[0] = playerFile.readFile().nextLine();
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class Dialogue
 		}
 		playerFile.writeIntoFile(playerData);
 		
-		playerArray[0] = playerFile.readFile(FileManager.tempFile(playerFile.getPath(), playerFile.getFileName())).nextLine();
+		playerArray[0] = playerFile.readFile().nextLine();
 		
 		//tells the player their name again
 		System.out.print(ConsoleColors.ITALICS);
@@ -231,7 +231,7 @@ public class Dialogue
 	 */
 	public static void makeFirstScene() throws FileNotFoundException
 	{
-		playerArray[0] = playerFile.readFile(FileManager.tempFile(playerFile.getPath(), playerFile.getFileName())).nextLine();
+		playerArray[0] = playerFile.readFile().nextLine();
 		
 		//sets precinct location to true to check if you're inside
 		precinct.setInside(true);
