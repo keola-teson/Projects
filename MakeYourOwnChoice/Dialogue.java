@@ -30,6 +30,7 @@ public class Dialogue
 	 * - coffee
 	 * - precinct
 	 * - apt
+	 * - road
 	 * * more to come *
 	 * 
 	 * Scanner for input
@@ -40,22 +41,29 @@ public class Dialogue
 	 * - characterList
 	 * - sessionSaver
 	 * - endingsTracker
+	 *   - endings string object to store all the saved endings
 	 * - relationshipTracker
+	 *   - relationship array for each character (will change to HashMap in the future)(maybe)
+	 *   - relationshipData string to store the array into the file
 	 * - playerFile
+	 *   - playerData to store the array into the file
 	 */
-	//Character Objects:							 Name		   Age		   Occupation				  Hobby				  Favorite			Relationshiip	  Color
-	static Characters partner   = new Characters("Harry Freeman"  ,"27"       ,"Detective"            ,"Photography"  ,"Sunsets"				    , "good");	//Green
-	static Characters captain   = new Characters("Steven Anders"  ,"50"       ,"Police Captain"       ,"Fishing"      ,"Beaches"				    , "good");	//Light Blue
-	static Characters roommate  = new Characters("Wallice West"   ,"22"       ,"Unemployed"           ,"Collecting"   ,"Mint Condition Miku Figure" , "good");	//Yellow
-	static Characters barista   = new Characters("Ruby Hesser"    ,"24"       ,"Barista"              ,"Dancing"      ,"Cats"					    , "good");	//Pink
-	static Characters forensics = new Characters("Alex Payne"     ,"31"       ,"Forensics Scientist"  ,"Gardening"    ,"Begonia"				    , "good");	//Salmon
-	static Characters murderer  = new Characters("Unknown"        ,"Unknown"  ,"Unknown"              ,"Unknown"      ,"Unknown"				    , "good");	//Red
-	static Characters bum       = new Characters("Tritan Nesto"   ,"25"       ,"Bum"                  ,"Exploring"    ,"His Camera"				    , "good");	//Black Background
 	
-	//Location Objects:						  Location		  Inside?
-	static Location coffee   = new Location("Coffee Shop"     ,false);
-	static Location precinct = new Location("Police Precinct" ,false);
-	static Location apt	   	 = new Location("Apartment"       ,false);
+	//Character Objects:							 Name		   	 Age		   Occupation				Hobby			Favorite				Relationship	Color
+	static Characters player 	= new Characters(""					,"25"		,"Detective"			,""			  	,""								,"good");
+	static Characters partner   = new Characters("Harry Freeman"	,"27"       ,"Detective"			,"Photography"	,"Sunsets"						,"good");	//Green
+	static Characters captain   = new Characters("Steven Anders"	,"50"       ,"Police Captain"		,"Fishing"		,"Beaches"						,"good");	//Light Blue
+	static Characters roommate  = new Characters("Wallice West"		,"22"		,"Unemployed"			,"Collecting"	,"Mint Condition Miku Figure"	,"good");	//Yellow
+	static Characters barista   = new Characters("Ruby Hesser"		,"24"       ,"Barista"				,"Dancing"		,"Cats"							,"good");	//Pink
+	static Characters forensics = new Characters("Alex Payne"		,"31"       ,"Forensics Scientist"	,"Gardening"	,"Begonia"						,"good");	//Salmon
+	static Characters murderer  = new Characters("Unknown"			,"Unknown"  ,"Unknown"				,"Unknown"		,"Unknown"						,"good");	//Red
+	static Characters bum       = new Characters("Tritan Nesto"		,"25"       ,"Bum"					,"Exploring"	,"His Camera"					,"good");	//Black Background
+	
+	//Location Objects:						  Location			Inside?
+	static Location coffee   = new Location("Coffee Shop"		,false);
+	static Location precinct = new Location("Police Precinct"	,false);
+	static Location apt	   	 = new Location("Apartment"			,false);
+	static Location road	 = new Location("Road"				,false);	
 	
 	static Scanner myScanner = new Scanner(System.in);
 	
@@ -72,7 +80,6 @@ public class Dialogue
 	static private String relationshipData = "";
 	static FileManager relationshipTracker = new FileManager("Relationship_Tracker");
 	
-	static private String[] playerArray = {"", "25", "Detective", "", ""};
 	static private String playerData = "";
 	static FileManager playerFile = new FileManager("Player_File");
 
@@ -102,13 +109,11 @@ public class Dialogue
 		
 		playerFile.createNewFile();
 		playerData = "";
-		for (String i : playerArray)
+		for (String i : player.getCharacterAttributes())
 		{
 			playerData += i + "\n";
 		}
 		playerFile.writeIntoFile(playerData);
-		
-		playerArray[0] = playerFile.readFile().nextLine();
 	}
 	
 	/**
@@ -121,27 +126,27 @@ public class Dialogue
 		//welcomes the player and lets them type their name
 		System.out.print(ConsoleColors.ITALICS);
 		System.out.println("Welcome, new player, what is your name?" + ConsoleColors.RESET);
-		playerArray[0] = myScanner.nextLine();
+		player.getCharacterAttributes()[0] = myScanner.nextLine();
 		//sets the subname to name for future use
 		
 		//checks if the player didn't input anything and automatically sets their name to "John Doe"
-		if (playerArray[0].length() == 0)
+		if (player.getCharacterAttributes()[0].length() == 0)
 		{
-			playerArray[0] = "John Doe";
+			player.getCharacterAttributes()[0] = "John Doe";
 		}
 		
 		playerData = "";
-		for (String i : playerArray)
+		for (String i : player.getCharacterAttributes())
 		{
 			playerData += i + "\n";
 		}
 		playerFile.writeIntoFile(playerData);
 		
-		playerArray[0] = playerFile.readFile().nextLine();
+		player.setName(playerFile.readFile().nextLine());
 		
 		//tells the player their name again
 		System.out.print(ConsoleColors.ITALICS);
-		System.out.println("Hello " + ConsoleColors.RESET + playerArray[0] + ConsoleColors.ITALICS + ". I am your narrator. I will be your guide through this text adventure.");
+		System.out.println("Hello " + ConsoleColors.RESET + player.getCharacterAttributes()[0] + ConsoleColors.ITALICS + ". I am your narrator. I will be your guide through this text adventure.");
 		System.out.println("");
 		
 		//asks the player if they know what the game is about and allows them to type yes or no
@@ -231,7 +236,7 @@ public class Dialogue
 	 */
 	public static void makeFirstScene() throws FileNotFoundException
 	{
-		playerArray[0] = playerFile.readFile().nextLine();
+		player.setName(playerFile.readFile().nextLine());
 		
 		//sets precinct location to true to check if you're inside
 		precinct.setInside(true);
@@ -244,7 +249,7 @@ public class Dialogue
 			 * calls the getCharacterAttributes method of the player object for easy attribute calling
 			 */
 			System.out.print(ConsoleColors.PARTNER);
-			System.out.println("Hey! You must be new here.\n" + playerArray[0] + ", right?");
+			System.out.println("Hey! You must be new here.\n" + player.getCharacterAttributes()[0] + ", right?");
 			System.out.println("Welcome to the precinct. I'm your partner, " + partner.getCharacterAttributes()[0] + ". Nice to meet you.");
 			System.out.println("I got a some paper work for you. I know it's not any detective work but don't worry, this is important for the case.");
 			System.out.println(ConsoleColors.RESET);
@@ -325,7 +330,7 @@ public class Dialogue
 					System.out.println("The papers in from of you look boring. You skim through them, not really taking much in as you read, "
 							+ "until you come across a paper that catches your eye. It's you. What it reads is: ");
 					System.out.println(ConsoleColors.BOLD);
-					System.out.println("Name: " + playerArray[0] + "\n" +
+					System.out.println("Name: " + player.getCharacterAttributes()[0] + "\n" +
 							"""
 							--------------
 							Hobbies: _____________
@@ -340,11 +345,11 @@ public class Dialogue
 					
 					System.out.print("What is your hobby: " + ConsoleColors.RESET);
 					String setHobby = myScanner.next();
-					playerArray[3] = setHobby;
+					player.getCharacterAttributes()[3] = setHobby;
 					
 					System.out.print(ConsoleColors.ITALICS + "What is your favorite thing in the whole word: " + ConsoleColors.RESET);
 					String setFavorite = myScanner.next();
-					playerArray[4] = setFavorite;
+					player.getCharacterAttributes()[4] = setFavorite;
 					System.out.println("");
 					
 					/*
