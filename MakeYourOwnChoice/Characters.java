@@ -20,18 +20,20 @@ public class Characters
 	private String name;
 	private String hobby;
 	private String favorite;
+	private String relationship;
 	
 	/**
 	 * Constructor for the class to allow the class to be called in different classes
 	 * @param occ
 	 */
-	public Characters(String charName, String charAge, String occ, String hob, String fav)
+	public Characters(String charName, String charAge, String occ, String hob, String fav, String relation)
 	{
 		age = charAge;
 		occupation = occ;
 		name = charName;
 		hobby = hob;
 		favorite = fav;
+		relationship = relation;
 	}
 	
 	/**
@@ -40,7 +42,7 @@ public class Characters
 	 */
 	public String[] getCharacterAttributes()
 	{
-		String[] attributes = {name, age, occupation, hobby, favorite};
+		String[] attributes = {name, age, occupation, hobby, favorite, relationship};
 		return attributes;
 	}
 
@@ -83,5 +85,14 @@ public class Characters
 	public void setFavorite(String favorite) {
 		this.favorite = favorite;
 	}
+
+	/**
+	 * Setter for relationship data attribute
+	 * @return
+	 */
+	public void setRelationship(String relationship) {
+		this.relationship = relationship;
+	}
+	
 	
 }
