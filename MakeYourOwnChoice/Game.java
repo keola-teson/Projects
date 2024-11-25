@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 /**
  * This is where the game is played.
@@ -6,18 +5,12 @@ import java.util.Scanner;
  */
 public class Game
 {
-	//sets up objects for game
-	static Scanner gameScanner = new Scanner(System.in);
 			
 	public static void main(String[] args) throws Exception
-	{
-		//calls the callSetUpClass method
-		Dialogue.callSetUpClass();
-		
-		//calls the makeFirstScene method to play scene 1
-		Dialogue.makeFirstScene();
-		
+	{	
+		//calls readSessionFile method
+		SessionSaver.readSessionFile();
 		//closes scanner
-		gameScanner.close();
+		Dialogue.myScanner.close();
 	}
 }
