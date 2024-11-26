@@ -39,13 +39,13 @@ public class Dialogue
 	 * 
 	 * File Objects:
 	 * - characterList
-	 * - sessionSaver
+	 * - .sessionSaver (hidden)
 	 * - endingsTracker
 	 *   - endings string object to store all the saved endings
 	 * - relationshipTracker
 	 *   - relationship array for each character (will change to HashMap in the future)(maybe)
 	 *   - relationshipData string to store the array into the file
-	 * - playerFile
+	 * - .playerFile (hidden)
 	 *   - playerData to store the array into the file
 	 */
 	
@@ -71,7 +71,7 @@ public class Dialogue
 	
 	static FileManager characterList = new FileManager("Character_List");
 	
-	static FileManager sessionSaver = new FileManager("Session_Saver");
+	static FileManager sessionSaver = new FileManager(".Session_Saver");
 	
 	static private String endings = "";
 	static FileManager endingsTracker = new FileManager("Endings_Tracker");
@@ -81,11 +81,18 @@ public class Dialogue
 	static FileManager relationshipTracker = new FileManager("Relationship_Tracker");
 	
 	static private String playerData = "";
-	static FileManager playerFile = new FileManager("Player_File");
+	static FileManager playerFile = new FileManager(".Player_File");
 
-	
+	/**
+	 * Method to set up game files
+	 * @throws FileNotFoundException
+	 */
 	public static void setUpGameFiles() throws FileNotFoundException
 	{
+		/*
+		 * Creates a new Character_List file by calling the createNewFile method
+		 * Writes each character into with their respective colors into the file with the writeIntoFile method
+		 */
 		characterList.createNewFile();
 		characterList.writeIntoFile(
 				"""
@@ -98,8 +105,15 @@ public class Dialogue
 				Bum - Black Background
 				""");
 		
+		//Creates a new Endings_Tracker file
 		endingsTracker.createNewFile();
 		
+		/*
+		 * Creates a new Relationship_Tracker file
+		 * loops through relationship array
+		 * - adds every item in the array into relationshipData String
+		 * writes relationshipData into file
+		 */
 		relationshipTracker.createNewFile();
 		for (String i : relationship)
 		{
@@ -107,6 +121,12 @@ public class Dialogue
 		}
 		relationshipTracker.writeIntoFile(relationshipData);
 		
+		/*
+		 * Creates a new Player_File file
+		 * loops through player attributes
+		 * - adds every item in the array into playerData String
+		 * writes playerData into file
+		 */
 		playerFile.createNewFile();
 		playerData = "";
 		for (String i : player.getCharacterAttributes())
@@ -126,14 +146,15 @@ public class Dialogue
 		//welcomes the player and lets them type their name
 		System.out.print(ConsoleColors.ITALICS);
 		System.out.println("Welcome, new player, what is your name?" + ConsoleColors.RESET);
-		player.getCharacterAttributes()[0] = myScanner.nextLine();
+		player.setName(myScanner.nextLine());
 		//sets the subname to name for future use
 		
 		//checks if the player didn't input anything and automatically sets their name to "John Doe"
 		if (player.getCharacterAttributes()[0].length() == 0)
 		{
-			player.getCharacterAttributes()[0] = "John Doe";
+			player.setName("John Doe");
 		}
+		System.out.println("");
 		
 		playerData = "";
 		for (String i : player.getCharacterAttributes())
@@ -146,7 +167,8 @@ public class Dialogue
 		
 		//tells the player their name again
 		System.out.print(ConsoleColors.ITALICS);
-		System.out.println("Hello " + ConsoleColors.RESET + player.getCharacterAttributes()[0] + ConsoleColors.ITALICS + ". I am your narrator. I will be your guide through this text adventure.");
+		System.out.println("Hello " + ConsoleColors.RESET + player.getCharacterAttributes()[0] + ConsoleColors.ITALICS + ". I am your narrator. "
+				+ "I will be your guide through this text adventure.");
 		System.out.println("");
 		
 		//asks the player if they know what the game is about and allows them to type yes or no
@@ -180,7 +202,7 @@ public class Dialogue
 					System.out.println("This is information I think you should know before you start the game:");
 					System.out.println("Each character--including me--have their own unique text and so it may get a little confusing keeping track of all this though so I thought of "
 									 + "a solution.");
-					System.out.println("If you take a look into your \"Documents\" folder you should see four new files: Characters_Saver, Session_Saver, Endings_Tracker, "
+					System.out.println("If you take a look into your \"Documents\" folder you should see Three new files: Characters_Saver, Endings_Tracker, "
 									 + "and Relationship_Tracker.");
 					System.out.println("If you ever forget which character is which, where you left off, how many endings you have achieved, "
 									 + "or what you relationship with other characters are look in their respective files.");
@@ -345,12 +367,24 @@ public class Dialogue
 					
 					System.out.print("What is your hobby: " + ConsoleColors.RESET);
 					String setHobby = myScanner.next();
-					player.getCharacterAttributes()[3] = setHobby;
+					player.setHobby(setHobby);
 					
 					System.out.print(ConsoleColors.ITALICS + "What is your favorite thing in the whole word: " + ConsoleColors.RESET);
 					String setFavorite = myScanner.next();
-					player.getCharacterAttributes()[4] = setFavorite;
+					player.setFavorite(setFavorite);
 					System.out.println("");
+					
+					/*
+					 * adds the hobby and favorite attributes to the player file
+					 */
+					playerData = "";
+					for (String i : player.getCharacterAttributes())
+					{
+						playerData += i + "\n";
+					}
+					playerFile.writeIntoFile(playerData);
+					
+					player.setName(playerFile.readFile().nextLine());
 					
 					/*
 					 * DRAMA :)
@@ -376,6 +410,8 @@ public class Dialogue
 					
 					System.out.println(ConsoleColors.CAPTAIN);
 					System.out.println("You're Harry's newest partner right?");
+					System.out.println("Thanks for filling the rest of your file out.");
+					System.out.println("How are you liking the precinct?");
 					System.out.print("" + ConsoleColors.RESET + ConsoleColors.ITALICS);
 					
 					try
@@ -407,7 +443,8 @@ public class Dialogue
 				 * A quick way to introduce the captain with blue text- Esc[0;94m
 				 */
 				case "c":
-					System.out.println("You leave the precinct. First day on the job and you're already ditching. You take one step out the door and here a voice." + ConsoleColors.RESET);
+					System.out.println("You leave the precinct. First day on the job and you're already ditching. You take one step out the door and here a voice." + 
+				ConsoleColors.RESET);
 					System.out.println(ConsoleColors.CAPTAIN + "Where do you think you're going?");
 					captain.setRelationship("bad");
 					break;
@@ -427,12 +464,14 @@ public class Dialogue
 			{
 				System.out.println("You know, it's tradition for the captain to give a tour of the precinct to the newest recruits but I don't wanna do that now.");
 				precinct.setInside(false);
+				break;
 			}
 			
 			//finalizes the dialogue for the tour
 			System.out.println("" + ConsoleColors.RESET + ConsoleColors.ITALICS);
 			System.out.println("Captain Anders gives the tour to us. The energy in his voice you notice immediately. Despite being in his 50s he surprisingly energetic, "
 					+ "especially about the precinct.");
+			precinct.setInside(false);
 			
 		}
 	}
