@@ -1,5 +1,13 @@
-import java.io.*;
+//create file
+import java.io.File;
+//write to file
+import java.io.FileWriter;
+//read file
 import java.util.Scanner;
+
+//errors
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * This class was made to make files for my MYC game
