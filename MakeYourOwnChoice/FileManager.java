@@ -13,7 +13,6 @@ public class FileManager
 	 * 
 	 * fileName - the name of the file
 	 * path - the path where the file gets saved
-	 * file - File object
 	 */
 	private String fileName;
 	private String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator;
