@@ -1,4 +1,3 @@
-import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -63,22 +62,22 @@ public class Dialogue
 	static Location coffee   = new Location("Coffee Shop"		,false);
 	static Location precinct = new Location("Police Precinct"	,false);
 	static Location apt	   	 = new Location("Apartment"			,false);
-	static Location road	 = new Location("Road"				,false);	
+	static Location outside	 = new Location("Road"				,false);	
 	
 	static Scanner myScanner = new Scanner(System.in);
 	
 	static private ArrayList<String> choices = new ArrayList<>();
 	
-	static FileManager characterList = new FileManager("Character_List");
+	static FileManager characterList = new FileManager("Character_List.txt");
 	
 	static FileManager sessionSaver = new FileManager(".Session_Saver");
 	
 	static private String endings = "";
-	static FileManager endingsTracker = new FileManager("Endings_Tracker");
+	static FileManager endingsTracker = new FileManager("Endings_Tracker.txt");
 	
 	static private String[] relationship = {"Partner - Good", "Captain - Good", "Roommate - Good", "Barista - Good", "Forensics - Good", " ", "Bum - Good"};
 	static private String relationshipData = "";
-	static FileManager relationshipTracker = new FileManager("Relationship_Tracker");
+	static FileManager relationshipTracker = new FileManager("Relationship_Tracker.txt");
 	
 	static private String playerData = "";
 	static FileManager playerFile = new FileManager(".Player_File");
@@ -146,11 +145,11 @@ public class Dialogue
 		//welcomes the player and lets them type their name
 		System.out.print(ConsoleColors.ITALICS);
 		System.out.println("Welcome, new player, what is your name?" + ConsoleColors.RESET);
-		player.setName(myScanner.nextLine());
+		String name = myScanner.nextLine();
 		//sets the subname to name for future use
 		
 		//checks if the player didn't input anything and automatically sets their name to "John Doe"
-		if (player.getCharacterAttributes()[0].length() == 0)
+		if (name.length() == 0)
 		{
 			player.setName("John Doe");
 		}
@@ -193,21 +192,25 @@ public class Dialogue
 			if (choose.indexOf("yes") != -1)
 			{
 					System.out.println(ConsoleColors.ITALICS);
-					System.out.println("Oh really? This isn't your first time huh. Well, welcome back. I'll just send you to the game.\n");
+					System.out.println("Oh? You aren't a new player? Welcome back then. I'll just send you into the game.\n");
 					break;
 			}		
 			else if (choose.indexOf("no") != -1)
 			{
 					System.out.println(ConsoleColors.ITALICS);
-					System.out.println("This is information I think you should know before you start the game:");
-					System.out.println("Each character--including me--have their own unique text and so it may get a little confusing keeping track of all this though so I thought of "
-									 + "a solution.");
-					System.out.println("If you take a look into your \"Documents\" folder you should see Three new files: Characters_Saver, Endings_Tracker, "
-									 + "and Relationship_Tracker.");
-					System.out.println("If you ever forget which character is which, where you left off, how many endings you have achieved, "
-									 + "or what you relationship with other characters are look in their respective files.");
-					System.out.println("For the story, I don't wanna give you too much but this game is a murder mystery, and it's your task to take down the murderer.\n");
-					TimeUnit.SECONDS.sleep(20);
+					System.out.println("""
+							Information you should know before the game: Each character–including me–has their own unique text color. 
+							Although, that may get a little confusing to keep track of, so I thought of a solution. 
+							If you take a look into your documents folder, you should see a file called “Character_List”. 
+							Inside that file you should see every character and its corresponding color. 
+							In your Document folder, you should also see two other files called “Endings Tracker” and “Relationship_Tracker”.
+							
+							If you ever need to stop playing, the game will automatically start at the beginning of the scene you were just in.
+							""");
+					System.out.println("");
+					System.out.println("About the game: You are a new detective. You’ve been tasked to gather information and ultimately take down a murderer "
+							+ "terrorizing your town.\n");
+					new Delay(20000);
 					break;
 			}
 				System.out.print(ConsoleColors.ITALICS);
@@ -223,27 +226,19 @@ public class Dialogue
 		{
 			endings += "The Error Ending\n	Obtained when the player didn't answer a simple yes or no question";
 			endingsTracker.writeIntoFile(endings);
-			try
-			{
-				System.out.print("bro");
-				TimeUnit.MILLISECONDS.sleep(700);
-				System.out.print(".");
-				TimeUnit.MILLISECONDS.sleep(700);
-				System.out.print(".");
-				TimeUnit.MILLISECONDS.sleep(700);
-				System.out.print(". ");
-				TimeUnit.MILLISECONDS.sleep(700);
-				
-				System.out.println("Really...");
-				TimeUnit.MILLISECONDS.sleep(2000);
-				
-				System.out.print("You know what");
-				TimeUnit.MILLISECONDS.sleep(1800);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			
+			sessionSaver.deleteFile();
+			
+			System.out.print("bro");
+			new Delay(700);
+			new Delay('l', "...", 700);
+			
+			System.out.println(" Really...");
+			new Delay(2000);
+			
+			new Delay('w', "You know what...", 300);
+			System.out.print("\n");
+			new Delay(1800);
 			System.out.print(ConsoleColors.ITALICS);
 			System.out.println("\nThe game is over... \nthe murderer killed you on your first day. you rot in hell.");
 			System.out.print(ConsoleColors.RESET);
@@ -263,7 +258,6 @@ public class Dialogue
 		//sets precinct location to true to check if you're inside
 		precinct.setInside(true);
 		
-		//while to check if the player is inside or not. ends scene if not.
 		while (precinct.isInside())
 		{
 			/*
@@ -328,16 +322,10 @@ public class Dialogue
 				case "a":
 					System.out.print("The presinct is small. Your coworkers are moving all over the place. The noise is deafening. It's all so");
 					System.out.println(ConsoleColors.RESET);
-					try
-					{
-						TimeUnit.MILLISECONDS.sleep(1300);
-						TimeUnit.MILLISECONDS.sleep(1300);
-					} 
-					catch (InterruptedException e) 
-					{
-						e.printStackTrace();
-					}
-					System.out.print(ConsoleColors.CAPTAIN);
+					
+					new Delay(2600);
+					
+					System.out.print("\n" + ConsoleColors.CAPTAIN);
 					System.out.println("Chaotic right?");
 					break;
 				
@@ -390,44 +378,19 @@ public class Dialogue
 					 * DRAMA :)
 					 */
 					System.out.print(ConsoleColors.ITALICS + "You hear thumping from behind you. It gets louder ");
-					try
-					{
-						TimeUnit.MILLISECONDS.sleep(500);
-						System.out.print("and ");
-						TimeUnit.MILLISECONDS.sleep(700);
-						System.out.print("louder ");
-						TimeUnit.MILLISECONDS.sleep(500);
-						System.out.print("and ");
-						TimeUnit.MILLISECONDS.sleep(700);
-						System.out.print("louder until");
-						TimeUnit.MILLISECONDS.sleep(1800);
-						System.out.println("");
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-					}
 					
-					System.out.println(ConsoleColors.CAPTAIN);
+					new Delay('w', "and louder, and louder, and louder until", 700, 500, 2);
+					new Delay(1800);
+					System.out.println("");
+	
+					
+					System.out.println("\n" + ConsoleColors.CAPTAIN);
 					System.out.println("You're Harry's newest partner right?");
 					System.out.println("Thanks for filling the rest of your file out.");
 					System.out.println("How are you liking the precinct?");
 					System.out.print("" + ConsoleColors.RESET + ConsoleColors.ITALICS);
 					
-					try
-					{
-						TimeUnit.MILLISECONDS.sleep(700);
-						System.out.print(".");
-						TimeUnit.MILLISECONDS.sleep(500);
-						System.out.print(".");
-						TimeUnit.MILLISECONDS.sleep(500);
-						System.out.println(".");
-						TimeUnit.MILLISECONDS.sleep(700);
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-					}
+					new Delay(700);
 					
 					/*
 					 * he didn't like that very much :(
@@ -444,7 +407,7 @@ public class Dialogue
 				 */
 				case "c":
 					System.out.println("You leave the precinct. First day on the job and you're already ditching. You take one step out the door and here a voice." + 
-				ConsoleColors.RESET);
+							ConsoleColors.RESET);
 					System.out.println(ConsoleColors.CAPTAIN + "Where do you think you're going?");
 					captain.setRelationship("bad");
 					break;
@@ -462,6 +425,7 @@ public class Dialogue
 			}
 			else if (captain.getCharacterAttributes()[5] == "bad")
 			{
+				System.out.print(ConsoleColors.CAPTAIN);
 				System.out.println("You know, it's tradition for the captain to give a tour of the precinct to the newest recruits but I don't wanna do that now.");
 				precinct.setInside(false);
 				break;
@@ -470,9 +434,23 @@ public class Dialogue
 			//finalizes the dialogue for the tour
 			System.out.println("" + ConsoleColors.RESET + ConsoleColors.ITALICS);
 			System.out.println("Captain Anders gives the tour to us. The energy in his voice you notice immediately. Despite being in his 50s he surprisingly energetic, "
-					+ "especially about the precinct.");
-			precinct.setInside(false);
+					+ "especially about the precinct. You notice a familiar face during the tour.");
+			System.out.println("" + ConsoleColors.RESET + ConsoleColors.CAPTAIN);
+			System.out.println("Hello Detective Freeman, have you met your newest partner?");
 			
+			System.out.println("" + ConsoleColors.RESET + ConsoleColors.PARTNER);
+			System.out.println("I have yes ");
+			break;
 		}
+	}
+	
+	public static void makeSceneTwoInside()
+	{
+		
+	}
+	
+	public static void makeSceneTwoOutside()
+	{
+		
 	}
 }
