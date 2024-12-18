@@ -1,11 +1,5 @@
 import java.util.Scanner;
 
-import objects.Characters;
-import objects.ConsoleColors;
-import objects.Delay;
-import objects.FileManager;
-import objects.Location;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
