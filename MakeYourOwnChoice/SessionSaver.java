@@ -1,6 +1,12 @@
 import java.util.Scanner;
 
+import objects.ConsoleColors;
+import objects.FileManager;
 
+/**
+ * Class to allow the player to stop and start the game where they left off
+ * CURRENTLY UNUSED CLASS
+ */
 public class SessionSaver
 {	
 	public static void readSessionFile() throws Exception
@@ -17,8 +23,10 @@ public class SessionSaver
 		while(fileReader.hasNext())
 			{
 				//stores the data in the file to data String
-				data = fileReader.nextLine();
+				data = fileReader.next();
 			}
+		
+		Dialogue.setUpGameFiles();
 		
 		/*
 		 * GIANT SWITCH STATEMENT
@@ -32,7 +40,21 @@ public class SessionSaver
 			 * calls every scene after the set up scene
 			 */
 			case "scene1":
+				System.out.println("scene 1");
 				Dialogue.makeFirstScene();
+				
+				Dialogue.sessionSaver.writeIntoFile("scene2");
+				
+			case "scene2":
+				if (Dialogue.precinct.isInside())
+				{
+					Dialogue.tourPlayer();
+				}
+				else
+				{
+					Dialogue.goOutside();
+				}
+				break;
 		
 			/*
 			 * default
@@ -44,9 +66,22 @@ public class SessionSaver
 			default:
 				Dialogue.setUpGameFiles();
 				Dialogue.setUpGame();
+				
 				Dialogue.sessionSaver.writeIntoFile("scene1");
 				Dialogue.makeFirstScene();
+				
 				Dialogue.sessionSaver.writeIntoFile("scene2");
+				if (Dialogue.precinct.isInside())
+				{
+					Dialogue.tourPlayer();
+				}
+				else
+				{
+					Dialogue.goOutside();
+				}
+				break;
 		}
+		System.out.println(ConsoleColors.RESET);
+		System.out.println("Thank you for playing :)");
 	}
 }
