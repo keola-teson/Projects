@@ -98,6 +98,7 @@ public class Showcases
 	 */
 	public static void showcaseUnit1()
 	{
+		
 		//gives the player important terms
 		new Delay("""
 				Important terms:
@@ -322,13 +323,13 @@ public class Showcases
 				}
 				catch (Exception e)
 				{	
-					if (value.length() != 3)
+					if (value.substring(0, value.indexOf(';')).length() > 3)
 					{
 						System.out.println("You can only store one character. Please try again.");
 						continue;
 					}
 					
-					if (value.charAt(0) != '\'' && value.charAt(2) != '\'')
+					if (value.charAt(0) != '\'' || value.charAt(2) != '\'')
 					{
 						System.out.println("The inputted char must be surrounded by apostrophes (' ')");
 						continue;
