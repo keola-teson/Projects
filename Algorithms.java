@@ -173,26 +173,17 @@ public class Algorithms
 	 */
 	public static boolean isThreeInARow(int[] array)
 	{
-		int count = 1;
-		
-		//loops through the array
-		for (int i = 1; i < array.length; i++)
+		//loops through the array - 2 elements
+		for (int i = 0; i < array.length - 2; i++)
 		{
-			//checks if the previous number is the same as the current number
-			if (array[i] == array[i - 1])
+			//checks if the current next and next after that are the same
+			if (array[i + 2] == array[i] && array[i + 1] == array[i])
 			{
-				//incriment count
-				count++;
+				//returns true. breaks the loop
+				return true;
 			}
 		}
-		
-		//checks if count is 3
-		if (count >= 3)
-		{
-			//returns true
-			return true;
-		}
-		//else returns false
+		//if there wasn't a three in a row, return false
 		return false;
 	}
 	
