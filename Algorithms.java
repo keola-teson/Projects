@@ -216,11 +216,20 @@ public class Algorithms
 	 */
 	public static void reverseArray(int[] array)
 	{
-		//loops through the array
+		//a copy of the passed array
+		int[] copy = new int[array.length];
+		
+		//copies each element into the new array
 		for (int i = 0; i < array.length; i++)
 		{
-			//swaps the current number with current last number (calls a swap method)
-			swap(array, i, (array.length - 1) - i);
+			copy[i] = array[i];
+		}
+		
+		//loops through the array going backwards
+		for (int i = array.length - 1; i >= 0; i--)
+		{
+			//changes the current element in the passed array to the reversed current element in the array
+			array[i] = copy[(array.length - 1) - i];
 		}
 	}
 	
