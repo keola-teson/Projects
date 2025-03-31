@@ -39,8 +39,8 @@ public class Normal extends Opponent
 		
 		while (player.getBoard().getBoard()[posY][posX] == 'X' || player.getBoard().getBoard()[posY][posX] == 'O')
 		{
-			posY = (int)(Math.random() * 3);
-			posX = (int)(Math.random() * 3);
+			posY = (int)(Math.random() * player.getBoard().getBoard().length);
+			posX = (int)(Math.random() * player.getBoard().getBoard().length);
 		}
 		player.getBoard().changeBoardValue(posY, posX, 'O');
 	}
@@ -71,7 +71,7 @@ public class Normal extends Opponent
 					amountO++;
 				}
 			}
-			if (amountX == 2 && amountO == 0)
+			if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
 			{
 				placeORow(board);
 				return true;
@@ -124,7 +124,7 @@ public class Normal extends Opponent
 					amountO++;
 				}
 			}
-			if (amountX == 2 && amountO == 0)
+			if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
 			{
 				placeOColumn(board);
 				return true;
@@ -154,18 +154,84 @@ public class Normal extends Opponent
 	{
 		char[][] board = player.getBoard().getBoard();
 		
-		//checks if player is about to win
-		if (board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] != 'O')
+		int amountX = 0;
+		int amountO = 0;
+		
+		//first check
+		int posY = 0;
+		int posX = 0;
+		while (posY != board.length - 1)
 		{
-			player.getBoard().changeBoardValue(2, 2, 'O');
-			return true;
+			if (board[posY][posX] == 'X') amountX++;
+			if (board[posY][posX] == 'O') amountO++;
+			
+			if (amountX == board.length - 1 && amountO == 0)
+			{
+				placeDiagonalOne(board);
+				return true;
+			}
+			
+			posY++;
+			posX++;
 		}
-		else if (board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] != 'O')
+		
+		amountX = 0;
+		amountO = 0;
+		
+		//second check
+		posY = 0;
+		posX = board.length - 1;
+		while (posY != board.length - 1)
 		{
-			player.getBoard().changeBoardValue(2, 0, 'O');
-			return true;
+			if (board[posY][posX] == 'X') amountX++;
+			if (board[posY][posX] == 'O') amountO++;
+			
+			if (amountX == board.length - 1 && amountO == 0)
+			{
+				placeDiagonalTwo(board);
+				return true;
+			}
+			
+			posY++;
+			posX--;
 		}
 		
 		return false;
+	}
+	
+	private void placeDiagonalOne(char[][] board)
+	{
+		int posY = 0;
+		int posX = 0;
+		
+		while (posY != player.getBoard().getBoard().length - 1)
+		{
+			if (board[posY][posX] == ' ')
+			{
+				player.getBoard().changeBoardValue(posY, posX, 'O');
+				return;
+			}
+			
+			posY++;
+			posX++;
+		}
+	}
+	
+	private void placeDiagonalTwo(char[][] board)
+	{
+		int posY = 0;
+		int posX = player.getBoard().getBoard().length - 1;
+		
+		while (posY != player.getBoard().getBoard().length - 1)
+		{
+			if (board[posY][posX] != ' ')
+			{
+				player.getBoard().changeBoardValue(posY, posX, 'O');
+				return;
+			}
+			
+			posY++;
+			posX--;
+		}
 	}
 }

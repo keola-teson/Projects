@@ -20,28 +20,15 @@ public class Hard extends Opponent
 	/**
 	 * chooses the position of the O based on stuff
 	 */
+	@Override
 	public void chooseBox()
 	{
 		//leaves method if the check was successful and an O was placed
-		if (checkRows())
-		{
-			System.out.println("row");
-			return;
-		}
-		
+		if (checkRows()) return;
 		//ditto
-		if (checkColumns())
-		{
-			System.out.println("column");
-			return;
-		}
-		
+		if (checkColumns()) return;
 		//ditto
-		if (checkDiagonals())
-		{
-			System.out.println("diagonal");
-			return;
-		}
+		if (checkDiagonals()) return;
 		
 		//does if check fails
 		chooseRandomly();
@@ -57,8 +44,8 @@ public class Hard extends Opponent
 		
 		while (player.getBoard().getBoard()[posY][posX] == 'X' || player.getBoard().getBoard()[posY][posX] == 'O')
 		{
-			posY = (int)(Math.random() * 3);
-			posX = (int)(Math.random() * 3);
+			posY = (int)(Math.random() * player.getBoard().getBoard().length);
+			posX = (int)(Math.random() * player.getBoard().getBoard().length);
 		}
 		player.getBoard().changeBoardValue(posY, posX, 'O');
 	}
@@ -68,6 +55,7 @@ public class Hard extends Opponent
 	 * checks the row to see if the player is close to winning
 	 * @return true if the an O was placed
 	 */
+	@Override
 	protected boolean checkRows()
 	{
 		char[][] board = player.getBoard().getBoard();
@@ -93,12 +81,12 @@ public class Hard extends Opponent
 					amountO++;
 				}
 			}
-			if (amountO == 2 && amountX == 0)
+			if (amountO == player.getBoard().getBoard().length - 1 && amountX == 0)
 			{
 				placeORow(board);
 				return true;
 			}
-			else if (amountX == 2 && amountO == 0)
+			else if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
 			{
 				placeORow(board);
 				return true;
@@ -136,6 +124,7 @@ public class Hard extends Opponent
 	 * @param posX
 	 * @return true if an O was placed
 	 */
+	@Override
 	protected boolean checkColumns()
 	{
 		char[][] board = player.getBoard().getBoard();
@@ -162,12 +151,12 @@ public class Hard extends Opponent
 					amountO++;
 				}
 			}
-			if (amountO == 2 && amountX == 0)
+			if (amountO == player.getBoard().getBoard().length - 1 && amountX == 0)
 			{
 				placeOColumn(board);
 				return true;
 			}
-			else if (amountX == 2 && amountO == 0)
+			else if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
 			{
 				placeOColumn(board);
 				return true;
@@ -205,6 +194,7 @@ public class Hard extends Opponent
 	 * @param posX
 	 * @return true if an O was placed
 	 */
+	@Override
 	protected boolean checkDiagonals()
 	{
 		char[][] board = player.getBoard().getBoard();
@@ -215,20 +205,18 @@ public class Hard extends Opponent
 		//first check
 		int posY = 0;
 		int posX = 0;
-		while (posY != 2 && posX != 2)
+		while (posY != board.length - 1)
 		{
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountO == 2 && amountX == 0)
+			if (amountO == board.length - 1 && amountX == 0)
 			{
-				System.out.println("check 1 | o check");
 				placeDiagonalOne(board);
 				return true;
 			}
-			else if (amountX == 2 && amountO == 0)
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
-				System.out.println("check 1 | x check");
 				placeDiagonalOne(board);
 				return true;
 			}
@@ -242,21 +230,19 @@ public class Hard extends Opponent
 		
 		//second check
 		posY = 0;
-		posX = 2;
-		while (posY != 2 && posX != 0)
+		posX = board.length;
+		while (posY != board.length - 1)
 		{
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountO == 2 && amountX == 0)
+			if (amountO == board.length - 1 && amountX == 0)
 			{
-				System.out.println("check 2 | o check");
 				placeDiagonalTwo(board);
 				return true;
 			}
-			else if (amountX == 2 && amountO == 0)
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
-				System.out.println("check 2 | x check");
 				placeDiagonalTwo(board);
 				return true;
 			}
@@ -280,6 +266,9 @@ public class Hard extends Opponent
 				player.getBoard().changeBoardValue(posY, posX, 'O');
 				return;
 			}
+			
+			posY++;
+			posX++;
 		}
 	}
 	

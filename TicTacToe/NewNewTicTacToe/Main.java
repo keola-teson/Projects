@@ -4,8 +4,8 @@ import opponent.Hard;
 import opponent.Impossible;
 import opponent.Normal;
 import opponent.Opponent;
-import opponent.PlayerTwo;
 import player.Player;
+import player.PlayerTwo;
 
 /**
  * Where game is played
@@ -27,39 +27,34 @@ public class Main
 		//loops until the player wants to stop playing
 		while (test)
 		{
-			System.out.println("Choose a mode (2 Player | Robot");
+			System.out.println("Choose a mode (2 Player | Robot):");
 			String input = player.getScanner().nextLine();
 			
 			if (input.equalsIgnoreCase("robot"))
 			{
-				System.out.println("Choose a difficulty (easy | normal | hard | Two Player):");
+				System.out.println("Choose a difficulty (easy | normal | hard):");
 				input = player.getScanner().nextLine();
 				
 				//calls a different constructor based on what the player wants
 				switch (input.toLowerCase())
 				{
 					case "easy":
-						opponent = new Easy(player);
-						break;
-					case "1":
+						System.out.println("Easy chosen.");
 						opponent = new Easy(player);
 						break;
 					
 					case "normal":
-						opponent = new Normal(player);
-						break;
-					case "2":
+						System.out.println("Normal chosen.");
 						opponent = new Normal(player);
 						break;
 					
 					case "hard":
-						opponent = new Hard(player);
-						break;
-					case "3":
+						System.out.println("Hard chosen.");
 						opponent = new Hard(player);
 						break;
 					
 					default:
+						System.out.println("Impossible chosen.");
 						opponent = new Impossible(player);
 				}
 			}
@@ -77,13 +72,20 @@ public class Main
 				
 				player.chooseBox();
 				
-				if (!input.equalsIgnoreCase("Robot"))
+				if (player.getBoard().checkBoard())
 				{
-					System.out.println("\nO Turn!");
-					player.getBoard().printBoard();
-				}
+					if (!input.equalsIgnoreCase("Robot"))
+					{
+						System.out.println("\nO Turn!");
+						player.getBoard().printBoard();
+					}
 				
-				opponent.chooseBox();
+					opponent.chooseBox();
+				}
+				else
+				{
+					break;
+				}
 			}
 			
 			//ends game
@@ -93,9 +95,11 @@ public class Main
 	
 	private static boolean endGame(Player player)
 	{
-		player.getScanner().nextLine();
+		player.getBoard().printBoard();
+		System.out.println();
 		
 		System.out.println("Do you want to play again?");
+		player.getScanner().nextLine();
 		
 		String input = player.getScanner().nextLine();
 		if (!(input.equalsIgnoreCase("yes")))

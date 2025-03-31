@@ -82,6 +82,9 @@ public class Board
 	 */
 	private boolean checkWin()
 	{
+		int amountX;
+		int amountO;
+		
 		/*
 		 * CHECK ONE
 		 * checks the rows for an X win condition (three in a row)
@@ -90,25 +93,25 @@ public class Board
 		 */
 		for (char row[] : board)
 		{
-			int xCount = 0;
-			int oCount = 0;
+			amountX = 0;
+			amountO = 0;
 			for (char box : row)
 			{
 				if (box == 'X')
 				{
-					xCount++;
+					amountX++;
 				}
 				else if (box == 'O')
 				{
-					oCount++;
+					amountO++;
 				}
 			}
-			if (xCount == 3)
+			if (amountX == board.length)
 			{
 				System.out.println("Player One Wins!");
 				return false;
 			}
-			else if (oCount == 3)
+			else if (amountO == board.length)
 			{
 				System.out.println("Player One Loses!");
 				return false;
@@ -121,25 +124,54 @@ public class Board
 		 * returns false if found
 		 * - moves to next check if not
 		 */
-		if (board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X')
+		int posY = 0;
+		int posX = 0;
+		
+		amountX = 0;
+		amountO = 0;
+		
+		while (posY < board.length)
 		{
-			System.out.println("Player One Wins!");
-			return false;
+			if (board[posY][posX] == 'X') amountX++;
+			if (board[posY][posX] == 'O') amountO++;
+			
+			if (amountX == board.length)
+			{
+				System.out.println("Player One Wins!");
+				return false;
+			}
+			if (amountO == board.length)
+			{
+				System.out.println("Player One Loses!");
+			}
+			
+			posY++;
+			posX++;
 		}
-		else if (board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X')
+		
+		posY = 0;
+		posX = board.length - 1;
+		
+		amountX = 0;
+		amountO = 0;
+		
+		while (posY < board.length)
 		{
-			System.out.println("Player One Wins!");
-			return false;
-		}
-		else if (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O')
-		{
-			System.out.println("Player One Loses!");
-			return false;
-		}
-		else if (board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O')
-		{
-			System.out.println("Player One loses!");
-			return false;
+			if (board[posY][posX] == 'X') amountX++;
+			if (board[posY][posX] == 'O') amountO++;
+			
+			if (amountX == board.length)
+			{
+				System.out.println("Player One Wins!");
+				return false;
+			}
+			if (amountO == board.length)
+			{
+				System.out.println("Player One Loses!");
+			}
+			
+			posY++;
+			posX--;
 		}
 		
 		/*
@@ -152,26 +184,26 @@ public class Board
 		 */
 		for (int i = 0; i < board[0].length; i++)
 		{
-			int xCount = 0;
-			int oCount = 0;
+			amountX = 0;
+			amountO = 0;
 			
 			for (int j = 0; j < board.length; j++)
 			{
 				if (board[j][i] == 'X')
 				{
-					xCount++;
+					amountX++;
 				}
 				else if (board[j][i] == 'O')
 				{
-					oCount++;
+					amountO++;
 				}
 			}
-			if (xCount == 3)
+			if (amountX == board.length)
 			{
 				System.out.println("Player One Wins!");
 				return false;
 			}
-			else if (oCount == 3)
+			else if (amountO == board.length)
 			{
 				System.out.println("Player One Loses!");
 			}
@@ -201,7 +233,7 @@ public class Board
 				}
 			}
 		}
-		if (count == 9)
+		if (count == board.length * board.length)
 		{
 			System.out.println("Tie!");
 			return false;
