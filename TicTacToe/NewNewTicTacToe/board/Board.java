@@ -38,14 +38,16 @@ public class Board
 		for (char[] row : board)
 		{
 			System.out.print("[");
+			System.out.print("\033[4m");
 			for (int i = 0; i < row.length; i++)
 			{
 				System.out.print(row[i]);
 				if (i < row.length - 1)
 				{
-					System.out.print(", ");
+					System.out.print("|");
 				}
 			}
+			System.out.print("\033[0m");
 			System.out.println("]");
 		}
 	}
