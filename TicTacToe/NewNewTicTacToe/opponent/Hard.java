@@ -39,10 +39,10 @@ public class Hard extends Opponent
 	 */
 	private void chooseRandomly()
 	{
-		int posY = 0;
-		int posX = 0;
+		int posY = (int)(Math.random() * player.getBoard().getBoard().length);
+		int posX = (int)(Math.random() * player.getBoard().getBoard().length);
 		
-		while (player.getBoard().getBoard()[posY][posX] == 'X' || player.getBoard().getBoard()[posY][posX] == 'O')
+		while (player.getBoard().getBoard()[posY][posX] != ' ')
 		{
 			posY = (int)(Math.random() * player.getBoard().getBoard().length);
 			posX = (int)(Math.random() * player.getBoard().getBoard().length);
@@ -66,8 +66,11 @@ public class Hard extends Opponent
 		 */
 		int amountX;
 		int amountO;
+		
+		int posY;
 		for (int i = 0; i < board.length; i++)
 		{
+			posY = i;
 			amountX = 0;
 			amountO = 0;
 			for (int j = 0; j < board[i].length; j++)
@@ -81,14 +84,14 @@ public class Hard extends Opponent
 					amountO++;
 				}
 			}
-			if (amountO == player.getBoard().getBoard().length - 1 && amountX == 0)
+			if (amountO == board.length - 1 && amountX == 0)
 			{
-				placeORow(board);
+				placeORow(board, posY);
 				return true;
 			}
-			else if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
-				placeORow(board);
+				placeORow(board, posY);
 				return true;
 			}
 		}
@@ -101,18 +104,14 @@ public class Hard extends Opponent
 	 * seperated from check for organization duhhhhhhh
 	 * @param board
 	 */
-	private void placeORow(char[][] board)
+	private void placeORow(char[][] board, int posY)
 	{
-		//places the O where the empty space is
-		for (int i = 0; i < board.length; i++)
+		for (int j = 0; j < board[posY].length; j++)
 		{
-			for (int j = 0; j < board[i].length; j++)
+			if (board[posY][j] == ' ')
 			{
-				if (board[i][j] == ' ')
-				{
-					player.getBoard().changeBoardValue(i, j, 'O');
-					return;
-				}
+				player.getBoard().changeBoardValue(posY, j, 'O');
+				return;
 			}
 		}
 	}
@@ -132,6 +131,7 @@ public class Hard extends Opponent
 		int amountX;
 		int amountO;
 		
+		int posX;
 		/*
 		 * moves through the column and checks for an almost win
 		 * check for the amount of Os in the row because the bot wouldn't move passed that spot every time
@@ -140,6 +140,8 @@ public class Hard extends Opponent
 		{
 			amountX = 0;
 			amountO = 0;
+			
+			posX = i;
 			for (int j = 0; j < board.length; j++)
 			{
 				if (board[j][i] == 'X')
@@ -151,14 +153,14 @@ public class Hard extends Opponent
 					amountO++;
 				}
 			}
-			if (amountO == player.getBoard().getBoard().length - 1 && amountX == 0)
+			if (amountO == board.length - 1 && amountX == 0)
 			{
-				placeOColumn(board);
+				placeOColumn(board, posX);
 				return true;
 			}
-			else if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
-				placeOColumn(board);
+				placeOColumn(board, posX);
 				return true;
 			}
 		}
@@ -171,18 +173,14 @@ public class Hard extends Opponent
 	 * seperated from check for organization duhhhhhhh
 	 * @param board
 	 */
-	private void placeOColumn(char[][] board)
+	private void placeOColumn(char[][] board, int posX)
 	{
-		//places the O where the empty space is
-		for (int i = 0; i < board[0].length; i++)
+		for (int j = 0; j < board[0].length; j++)
 		{
-			for (int j = 0; j < board.length; j++)
+			if (board[j][posX] == ' ')
 			{
-				if (board[j][i] == ' ')
-				{
-					player.getBoard().changeBoardValue(j, i, 'O');
-					return;
-				}
+				player.getBoard().changeBoardValue(j, posX, 'O');
+				return;
 			}
 		}
 	}
@@ -202,10 +200,17 @@ public class Hard extends Opponent
 		int amountX = 0;
 		int amountO = 0;
 		
-		//first check
+		/*
+		 * first check
+		 * - starts at (0, 0) and checks for an X or O
+		 * - checks if the amount of Xs or Os in a diagonal is 2 and either
+		 *   - wins the game
+		 *   - or stops the player from winning
+		 * - incrememnts posY and posX to move to next diagonal
+		 */
 		int posY = 0;
 		int posX = 0;
-		while (posY != board.length - 1)
+		while (posY < board.length)
 		{
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
@@ -228,20 +233,23 @@ public class Hard extends Opponent
 		amountX = 0;
 		amountO = 0;
 		
-		//second check
+		/*
+		 * second check
+		 * ditto
+		 */
 		posY = 0;
-		posX = board.length;
-		while (posY != board.length - 1)
+		posX = board.length - 1;
+		while (posY < board.length)
 		{
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountO == board.length - 1 && amountX == 0)
+			if (amountO == board.length && amountX == 0)
 			{
 				placeDiagonalTwo(board);
 				return true;
 			}
-			else if (amountX == board.length - 1 && amountO == 0)
+			else if (amountX == board.length && amountO == 0)
 			{
 				placeDiagonalTwo(board);
 				return true;
@@ -254,12 +262,17 @@ public class Hard extends Opponent
 		return false;
 	}
 	
+	/**
+	 * PLACE DIAGONAL
+	 * places an O if called on a square [0][0], [1][1], or [2][2]
+	 * @param board
+	 */
 	private void placeDiagonalOne(char[][] board)
 	{
 		int posY = 0;
 		int posX = 0;
 		
-		while (posY != 2 && posX != 2)
+		while (posY < player.getBoard().getBoard().length)
 		{
 			if (board[posY][posX] == ' ')
 			{
@@ -272,12 +285,17 @@ public class Hard extends Opponent
 		}
 	}
 	
+	/**
+	 * PLACE DIAGONAL
+	 * places an O if called on a square [0][2], [1][1], [2][0]
+	 * @param board
+	 */
 	private void placeDiagonalTwo(char[][] board)
 	{
 		int posY = 0;
 		int posX = 2;
 		
-		while (posY != 2 && posX != 0)
+		while (posY < player.getBoard().getBoard().length)
 		{
 			if (board[posY][posX] != ' ')
 			{

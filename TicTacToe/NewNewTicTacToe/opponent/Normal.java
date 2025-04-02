@@ -16,14 +16,14 @@ public class Normal extends Opponent
 	@Override
 	public void chooseBox()
 	{
-		int randNum = (int)(Math.random() * 10) + 1;
-		if (randNum <= 8)
+		int chance = (int)(Math.random() * 10) + 1; // 80% chance of playing smart, 20% not
+		if (chance <= 8)
 		{
-			if (checkRows()) return; //leaves method if the check was successful and an O was placed
+			if (checkRows()) return; // leaves method if the check was successful and an O was placed
 			
-			if (checkColumns()) return; //ditto
+			if (checkColumns()) return; // ditto
 			
-			if (checkDiagonals()) return; //ditto
+			if (checkDiagonals()) return; // ditto
 		}
 		
 		chooseRandomly();
@@ -56,10 +56,14 @@ public class Normal extends Opponent
 		 */
 		int amountX;
 		int amountO;
+		
+		int posY;
 		for (int i = 0; i < board.length; i++)
 		{
 			amountX = 0;
 			amountO = 0;
+			
+			posY = i;
 			for (int j = 0; j < board[i].length; j++)
 			{
 				if (board[i][j] == 'X')
@@ -73,7 +77,7 @@ public class Normal extends Opponent
 			}
 			if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
 			{
-				placeORow(board);
+				placeORow(board, posY);
 				return true;
 			}
 		}
@@ -81,18 +85,14 @@ public class Normal extends Opponent
 	}
 
 	
-	private void placeORow(char[][] board)
+	private void placeORow(char[][] board, int posY)
 	{
-		//places the O where the empty space is
-		for (int i = 0; i < board.length; i++)
+		for (int j = 0; j < board[posY].length; j++)
 		{
-			for (int j = 0; j < board[i].length; j++)
+			if (board[posY][j] == ' ')
 			{
-				if (board[i][j] == ' ')
-				{
-					player.getBoard().changeBoardValue(i, j, 'O');
-					return;
-				}
+				player.getBoard().changeBoardValue(posY, j, 'O');
+				return;
 			}
 		}
 	}
@@ -105,6 +105,7 @@ public class Normal extends Opponent
 		int amountX;
 		int amountO;
 		
+		int posX;
 		/*
 		 * moves through the column and checks for an almost win
 		 * check for the amount of Os in the row because the bot wouldn't move passed that spot every time
@@ -113,6 +114,8 @@ public class Normal extends Opponent
 		{
 			amountX = 0;
 			amountO = 0;
+			
+			posX = i;
 			for (int j = 0; j < board.length; j++)
 			{
 				if (board[j][i] == 'X')
@@ -124,9 +127,9 @@ public class Normal extends Opponent
 					amountO++;
 				}
 			}
-			if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
+			if (amountX == board.length - 1 && amountO == 0)
 			{
-				placeOColumn(board);
+				placeOColumn(board, posX);
 				return true;
 			}
 		}
@@ -134,21 +137,20 @@ public class Normal extends Opponent
 	}
 
 	
-	private void placeOColumn(char[][] board)
+	private void placeOColumn(char[][] board, int posX)
 	{
-		//places the O where the empty space is
-		for (int i = 0; i < board[0].length; i++)
+		for (int j = 0; j < board.length; j++)
 		{
-			for (int j = 0; j < board.length; j++)
+			if (board[j][posX] == ' ')
 			{
-				if (board[j][i] == ' ')
-				{
-					player.getBoard().changeBoardValue(j, i, 'O');
-				}
+				player.getBoard().changeBoardValue(j, posX, 'O');
 			}
 		}
 	}
 
+	/**
+	 * FOR DOCUMENTATION LOOK AT {@link opponent.Hard#checkDiagonals()} CLASS
+	 */
 	@Override
 	protected boolean checkDiagonals()
 	{
@@ -160,12 +162,12 @@ public class Normal extends Opponent
 		//first check
 		int posY = 0;
 		int posX = 0;
-		while (posY != board.length - 1)
+		while (posY < board.length)
 		{
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountX == board.length - 1 && amountO == 0)
+			if (amountX == board.length && amountO == 0)
 			{
 				placeDiagonalOne(board);
 				return true;
@@ -181,12 +183,12 @@ public class Normal extends Opponent
 		//second check
 		posY = 0;
 		posX = board.length - 1;
-		while (posY != board.length - 1)
+		while (posY < board.length)
 		{
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountX == board.length - 1 && amountO == 0)
+			if (amountX == board.length && amountO == 0)
 			{
 				placeDiagonalTwo(board);
 				return true;
@@ -199,12 +201,17 @@ public class Normal extends Opponent
 		return false;
 	}
 	
+	/**
+	 * PLACE DIAGONAL
+	 * places an O if called on a square [0][0], [1][1], or [2][2]
+	 * @param board
+	 */
 	private void placeDiagonalOne(char[][] board)
 	{
 		int posY = 0;
 		int posX = 0;
 		
-		while (posY != player.getBoard().getBoard().length - 1)
+		while (posY < player.getBoard().getBoard().length)
 		{
 			if (board[posY][posX] == ' ')
 			{
@@ -217,12 +224,17 @@ public class Normal extends Opponent
 		}
 	}
 	
+	/**
+	 * PLACE DIAGONAL
+	 * places an O if called on a square [0][2], [1][1], [2][0]
+	 * @param board
+	 */
 	private void placeDiagonalTwo(char[][] board)
 	{
 		int posY = 0;
 		int posX = player.getBoard().getBoard().length - 1;
 		
-		while (posY != player.getBoard().getBoard().length - 1)
+		while (posY < player.getBoard().getBoard().length)
 		{
 			if (board[posY][posX] != ' ')
 			{

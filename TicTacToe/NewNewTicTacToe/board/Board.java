@@ -108,12 +108,12 @@ public class Board
 			}
 			if (amountX == board.length)
 			{
-				System.out.println("Player One Wins!");
+				System.out.println("Player One Wins!\n");
 				return false;
 			}
 			else if (amountO == board.length)
 			{
-				System.out.println("Player One Loses!");
+				System.out.println("Player One Loses!\n");
 				return false;
 			}
 		}
@@ -137,12 +137,13 @@ public class Board
 			
 			if (amountX == board.length)
 			{
-				System.out.println("Player One Wins!");
+				System.out.println("Player One Wins!\n");
 				return false;
 			}
 			if (amountO == board.length)
 			{
-				System.out.println("Player One Loses!");
+				System.out.println("Player One Loses!\n");
+				return false;
 			}
 			
 			posY++;
@@ -162,12 +163,13 @@ public class Board
 			
 			if (amountX == board.length)
 			{
-				System.out.println("Player One Wins!");
+				System.out.println("Player One Wins!\n");
 				return false;
 			}
 			if (amountO == board.length)
 			{
-				System.out.println("Player One Loses!");
+				System.out.println("Player One Loses!\n");
+				return false;
 			}
 			
 			posY++;
@@ -200,12 +202,13 @@ public class Board
 			}
 			if (amountX == board.length)
 			{
-				System.out.println("Player One Wins!");
+				System.out.println("Player One Wins!\n");
 				return false;
 			}
 			else if (amountO == board.length)
 			{
-				System.out.println("Player One Loses!");
+				System.out.println("Player One Loses!\n");
+				return false;
 			}
 		}
 		

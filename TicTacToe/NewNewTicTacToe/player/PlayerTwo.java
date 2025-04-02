@@ -21,7 +21,7 @@ public class PlayerTwo extends Opponent
 	}
 	
 	/**
-	 * allows player to choose a row
+	 * allows player 2 to choose a row
 	 * @return what row they chose (posY)
 	 */
 	private int chooseRow()
@@ -47,7 +47,7 @@ public class PlayerTwo extends Opponent
 	}
 	
 	/**
-	 * allows player to choose a column
+	 * allows player 2 to choose a column
 	 * @return what column they chose (posX)
 	 */
 	private int chooseColumn()
@@ -90,6 +90,10 @@ public class PlayerTwo extends Opponent
 		player.getBoard().changeBoardValue(posY, posX, 'O');
 	}
 
+	/*
+	 * UNUSED METHODS
+	 * ----------------------------------------------
+	 */
 	@Override
 	protected boolean checkRows()
 	{

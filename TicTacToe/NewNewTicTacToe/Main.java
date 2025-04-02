@@ -74,12 +74,8 @@ public class Main
 				
 				if (player.getBoard().checkBoard())
 				{
-					if (!input.equalsIgnoreCase("Robot"))
-					{
-						System.out.println("\nO Turn!");
-						player.getBoard().printBoard();
-					}
-				
+					System.out.println("\nO Turn!");
+					player.getBoard().printBoard();
 					opponent.chooseBox();
 				}
 				else
