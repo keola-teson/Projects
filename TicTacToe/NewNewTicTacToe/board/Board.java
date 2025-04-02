@@ -30,7 +30,7 @@ public class Board
 	
 	/**
 	 * PRINTS BOARD
-	 * prints the board like this -> [ , , ]
+	 * prints the board like this -> [_|_|_]
 	 * Arrays.toString(board[i]) does the same thing but Mr. Trauger said I couldn't use it (￢_￢),
 	 */
 	public void printBoard()
@@ -249,8 +249,14 @@ public class Board
 	 * ACTUAL SETTER
 	 * Used to reset the board when the game is finished and the player wants to play again
 	 */
-	public void resetBoard(char[][] board)
+	public void resetBoard()
 	{
-		this.board = board;
+		for (int i = 0; i < board.length; i++)
+		{
+			for (int j = 0; j < board[i].length; j++)
+			{
+				board[i][j] = ' ';
+			}
+		}
 	}
 }
