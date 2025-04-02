@@ -246,7 +246,7 @@ public class Board
 	}
 	
 	/**
-	 * ACTUAL SETTER
+	 * RESET
 	 * Used to reset the board when the game is finished and the player wants to play again
 	 */
 	public void resetBoard()
