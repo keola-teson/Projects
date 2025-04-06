@@ -1,25 +1,14 @@
 package opponent;
+
 import player.Player;
 
-/**
- * ROBOT
- * hard mode
- * @author Keola Teson :)
- */
-public class Hard extends Opponent
+public class Hard extends Normal
 {
-	/**
-	 * CONSTRUCTOR
-	 * @param player
-	 */
 	public Hard(Player player)
 	{
 		super(player);
 	}
-	
-	/**
-	 * chooses the position of the O based on stuff
-	 */
+
 	@Override
 	public void chooseBox()
 	{
@@ -28,283 +17,78 @@ public class Hard extends Opponent
 		//ditto
 		if (checkColumns()) return;
 		//ditto
-		if (checkDiagonals()) return;
-		
-		//does if check fails
-		chooseRandomly();
-	}
-	
-	/**
-	 * picks a position on the board randomly
-	 */
-	private void chooseRandomly()
-	{
-		int posY = (int)(Math.random() * player.getBoard().getBoard().length);
-		int posX = (int)(Math.random() * player.getBoard().getBoard().length);
-		
-		while (player.getBoard().getBoard()[posY][posX] != ' ')
+		if (checkDiagonals())
 		{
-			posY = (int)(Math.random() * player.getBoard().getBoard().length);
-			posX = (int)(Math.random() * player.getBoard().getBoard().length);
+			System.out.println(true);
+			return;
 		}
-		player.getBoard().changeBoardValue(posY, posX, 'O');
+		
+		playBestMoves();
 	}
 	
-	/**
-	 * CHECK ONE
-	 * checks the row to see if the player is close to winning
-	 * @return true if the an O was placed
-	 */
-	@Override
-	protected boolean checkRows()
+	private void playBestMoves()
 	{
 		char[][] board = player.getBoard().getBoard();
 		
-		/*
-		 * moves through the rows and checks for an almost win
-		 * check for the amount of Os in the row because the bot wouldn't move passed that spot every time
-		 */
-		int amountX;
-		int amountO;
-		
-		int posY;
-		for (int i = 0; i < board.length; i++)
+		// best move if the player put X in center (first move)
+		if (board[1][1] == 'X' && board[0][0] == ' ')
 		{
-			posY = i;
-			amountX = 0;
-			amountO = 0;
-			for (int j = 0; j < board[i].length; j++)
-			{
-				if (board[i][j] == 'X')
-				{
-					amountX++;
-				}
-				if (board[i][j] == 'O')
-				{
-					amountO++;
-				}
-			}
-			if (amountO == board.length - 1 && amountX == 0)
-			{
-				placeORow(board, posY);
-				return true;
-			}
-			else if (amountX == board.length - 1 && amountO == 0)
-			{
-				placeORow(board, posY);
-				return true;
-			}
+			player.getBoard().changeBoardValue(0, 0, 'O');
 		}
-		return false;
-	}
-	
-	/**
-	 * STILL CHECK ONE
-	 * called if the player is about to win
-	 * seperated from check for organization duhhhhhhh
-	 * @param board
-	 */
-	private void placeORow(char[][] board, int posY)
-	{
-		for (int j = 0; j < board[posY].length; j++)
-		{
-			if (board[posY][j] == ' ')
-			{
-				player.getBoard().changeBoardValue(posY, j, 'O');
-				return;
-			}
-		}
-	}
-	
-	/**
-	 * CHECK TWO
-	 * checks the columns to see if the player is close to winning
-	 * @param posY
-	 * @param posX
-	 * @return true if an O was placed
-	 */
-	@Override
-	protected boolean checkColumns()
-	{
-		char[][] board = player.getBoard().getBoard();
 		
-		int amountX;
-		int amountO;
-		
+		int posY = 0;
 		int posX;
-		/*
-		 * moves through the column and checks for an almost win
-		 * check for the amount of Os in the row because the bot wouldn't move passed that spot every time
-		 */
-		for (int i = 0; i < board[0].length; i++)
+		
+		// best move if the player puts X in corner (first move)
+		while (posY <= 2)
 		{
-			amountX = 0;
-			amountO = 0;
-			
-			posX = i;
-			for (int j = 0; j < board.length; j++)
+			posX = 0;
+			while (posX <= 2)
 			{
-				if (board[j][i] == 'X')
+				if (board[posY][posX] == 'X' && board[1][1] == ' ')
 				{
-					amountX++;
+					player.getBoard().changeBoardValue(1, 1, 'O');
+					return;
 				}
-				if (board[j][i] =='O')
-				{
-					amountO++;
-				}
+				posX += 2;
 			}
-			if (amountO == board.length - 1 && amountX == 0)
-			{
-				placeOColumn(board, posX);
-				return true;
-			}
-			else if (amountX == board.length - 1 && amountO == 0)
-			{
-				placeOColumn(board, posX);
-				return true;
-			}
+			posY += 2;
 		}
-		return false;
-	}
-	
-	/**
-	 * STILL CHECK TWO
-	 * called if the player is about to win
-	 * seperated from check for organization duhhhhhhh
-	 * @param board
-	 */
-	private void placeOColumn(char[][] board, int posX)
-	{
-		for (int j = 0; j < board[0].length; j++)
+		
+		// best move if the player puts X on side (first move)
+		if ((board[0][1] == 'X' || board[1][0] == 'X') && board[0][0] == ' ')
 		{
-			if (board[j][posX] == ' ')
-			{
-				player.getBoard().changeBoardValue(j, posX, 'O');
-				return;
-			}
+			player.getBoard().changeBoardValue(0, 0, 'O');
+			return;
 		}
-	}
-	
-	/**
-	 * CHECK THREE
-	 * checks diagonals for if the player is close to winning
-	 * @param posY
-	 * @param posX
-	 * @return true if an O was placed
-	 */
-	@Override
-	protected boolean checkDiagonals()
-	{
-		char[][] board = player.getBoard().getBoard();
-		
-		int amountX = 0;
-		int amountO = 0;
-		
-		/*
-		 * first check
-		 * - starts at (0, 0) and checks for an X or O
-		 * - checks if the amount of Xs or Os in a diagonal is 2 and either
-		 *   - wins the game
-		 *   - or stops the player from winning
-		 * - incrememnts posY and posX to move to next diagonal
-		 */
-		int posY = 0;
-		int posX = 0;
-		while (posY < board.length)
+		else if (board[1][2] == 'X' && board[0][2] == ' ')
 		{
-			if (board[posY][posX] == 'X') amountX++;
-			if (board[posY][posX] == 'O') amountO++;
-			
-			if (amountO == board.length - 1 && amountX == 0)
-			{
-				placeDiagonalOne(board);
-				return true;
-			}
-			else if (amountX == board.length - 1 && amountO == 0)
-			{
-				placeDiagonalOne(board);
-				return true;
-			}
-			
-			posY++;
-			posX++;
+			player.getBoard().changeBoardValue(0, 2, 'O');
+			return;
+		}
+		else if (board[2][1] == 'X' && board[0][1] == ' ')
+		{
+			player.getBoard().changeBoardValue(0, 1, 'O');
+			return;
 		}
 		
-		amountX = 0;
-		amountO = 0;
-		
-		/*
-		 * second check
-		 * ditto
-		 */
+		// best move if the player puts X in corner (second move)
 		posY = 0;
-		posX = board.length - 1;
-		while (posY < board.length)
-		{
-			if (board[posY][posX] == 'X') amountX++;
-			if (board[posY][posX] == 'O') amountO++;
-			
-			if (amountO == board.length && amountX == 0)
-			{
-				placeDiagonalTwo(board);
-				return true;
-			}
-			else if (amountX == board.length && amountO == 0)
-			{
-				placeDiagonalTwo(board);
-				return true;
-			}
-			
-			posY++;
-			posX--;
-		}
+		posX = 0;
 		
-		return false;
-	}
-	
-	/**
-	 * PLACE DIAGONAL
-	 * places an O if called on a square [0][0], [1][1], or [2][2]
-	 * @param board
-	 */
-	private void placeDiagonalOne(char[][] board)
-	{
-		int posY = 0;
-		int posX = 0;
-		
-		while (posY < player.getBoard().getBoard().length)
+		while (posY <= 2)
 		{
-			if (board[posY][posX] == ' ')
+			posX = 0;
+			while (posX <= 2)
 			{
-				player.getBoard().changeBoardValue(posY, posX, 'O');
-				return;
+				if (board[posY][posX] == 'X' && board[0][1] == ' ')
+				{
+					player.getBoard().changeBoardValue(0, 1, 'O');
+					return;
+				}
+				posX += 2;
 			}
-			
-			posY++;
-			posX++;
-		}
-	}
-	
-	/**
-	 * PLACE DIAGONAL
-	 * places an O if called on a square [0][2], [1][1], [2][0]
-	 * @param board
-	 */
-	private void placeDiagonalTwo(char[][] board)
-	{
-		int posY = 0;
-		int posX = 2;
-		
-		while (posY < player.getBoard().getBoard().length)
-		{
-			if (board[posY][posX] != ' ')
-			{
-				player.getBoard().changeBoardValue(posY, posX, 'O');
-				return;
-			}
-			
-			posY++;
-			posX--;
+			posY += 2;
 		}
 	}
 }

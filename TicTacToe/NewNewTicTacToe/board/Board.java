@@ -35,9 +35,11 @@ public class Board
 	 */
 	public void printBoard()
 	{
+		System.out.println("  1 2 3");
+		int rowNum = 1;
 		for (char[] row : board)
 		{
-			System.out.print("[");
+			System.out.print(rowNum++ + "[");
 			System.out.print("\033[4m");
 			for (int i = 0; i < row.length; i++)
 			{

@@ -8,24 +8,29 @@ import player.Player;
  */
 public class Normal extends Opponent
 {
+	/**
+	 * CONSTRUCTOR
+	 * @param player
+	 */
 	public Normal(Player player)
 	{
 		super(player);
 	}
-
+	
+	/**
+	 * chooses the position of the O based on stuff
+	 */
 	@Override
 	public void chooseBox()
 	{
-		int chance = (int)(Math.random() * 10) + 1; // 80% chance of playing smart, 20% not
-		if (chance <= 8)
-		{
-			if (checkRows()) return; // leaves method if the check was successful and an O was placed
-			
-			if (checkColumns()) return; // ditto
-			
-			if (checkDiagonals()) return; // ditto
-		}
+		//leaves method if the check was successful and an O was placed
+		if (checkRows()) return;
+		//ditto
+		if (checkColumns()) return;
+		//ditto
+		if (checkDiagonals()) return;
 		
+		//does if check fails
 		chooseRandomly();
 	}
 	
@@ -34,17 +39,22 @@ public class Normal extends Opponent
 	 */
 	private void chooseRandomly()
 	{
-		int posY = 0;
-		int posX = 0;
+		int posY = (int)(Math.random() * player.getBoard().getBoard().length);
+		int posX = (int)(Math.random() * player.getBoard().getBoard().length);
 		
-		while (player.getBoard().getBoard()[posY][posX] == 'X' || player.getBoard().getBoard()[posY][posX] == 'O')
+		while (player.getBoard().getBoard()[posY][posX] != ' ')
 		{
 			posY = (int)(Math.random() * player.getBoard().getBoard().length);
 			posX = (int)(Math.random() * player.getBoard().getBoard().length);
 		}
 		player.getBoard().changeBoardValue(posY, posX, 'O');
 	}
-
+	
+	/**
+	 * CHECK ONE
+	 * checks the row to see if the player is close to winning
+	 * @return true if the an O was placed
+	 */
 	@Override
 	protected boolean checkRows()
 	{
@@ -60,10 +70,9 @@ public class Normal extends Opponent
 		int posY;
 		for (int i = 0; i < board.length; i++)
 		{
+			posY = i;
 			amountX = 0;
 			amountO = 0;
-			
-			posY = i;
 			for (int j = 0; j < board[i].length; j++)
 			{
 				if (board[i][j] == 'X')
@@ -75,7 +84,12 @@ public class Normal extends Opponent
 					amountO++;
 				}
 			}
-			if (amountX == player.getBoard().getBoard().length - 1 && amountO == 0)
+			if (amountO == board.length - 1 && amountX == 0)
+			{
+				placeORow(board, posY);
+				return true;
+			}
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
 				placeORow(board, posY);
 				return true;
@@ -83,8 +97,13 @@ public class Normal extends Opponent
 		}
 		return false;
 	}
-
 	
+	/**
+	 * STILL CHECK ONE
+	 * called if the player is about to win
+	 * seperated from check for organization duhhhhhhh
+	 * @param board
+	 */
 	private void placeORow(char[][] board, int posY)
 	{
 		for (int j = 0; j < board[posY].length; j++)
@@ -96,7 +115,14 @@ public class Normal extends Opponent
 			}
 		}
 	}
-
+	
+	/**
+	 * CHECK TWO
+	 * checks the columns to see if the player is close to winning
+	 * @param posY
+	 * @param posX
+	 * @return true if an O was placed
+	 */
 	@Override
 	protected boolean checkColumns()
 	{
@@ -127,7 +153,12 @@ public class Normal extends Opponent
 					amountO++;
 				}
 			}
-			if (amountX == board.length - 1 && amountO == 0)
+			if (amountO == board.length - 1 && amountX == 0)
+			{
+				placeOColumn(board, posX);
+				return true;
+			}
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
 				placeOColumn(board, posX);
 				return true;
@@ -135,21 +166,31 @@ public class Normal extends Opponent
 		}
 		return false;
 	}
-
 	
+	/**
+	 * STILL CHECK TWO
+	 * called if the player is about to win
+	 * seperated from check for organization duhhhhhhh
+	 * @param board
+	 */
 	private void placeOColumn(char[][] board, int posX)
 	{
-		for (int j = 0; j < board.length; j++)
+		for (int j = 0; j < board[0].length; j++)
 		{
 			if (board[j][posX] == ' ')
 			{
 				player.getBoard().changeBoardValue(j, posX, 'O');
+				return;
 			}
 		}
 	}
-
+	
 	/**
-	 * FOR DOCUMENTATION LOOK AT {@link opponent.Hard#checkDiagonals()} CLASS
+	 * CHECK THREE
+	 * checks diagonals for if the player is close to winning
+	 * @param posY
+	 * @param posX
+	 * @return true if an O was placed
 	 */
 	@Override
 	protected boolean checkDiagonals()
@@ -159,7 +200,14 @@ public class Normal extends Opponent
 		int amountX = 0;
 		int amountO = 0;
 		
-		//first check
+		/*
+		 * first check
+		 * - starts at (0, 0) and checks for an X or O
+		 * - checks if the amount of Xs or Os in a diagonal is 2 and either
+		 *   - wins the game
+		 *   - or stops the player from winning
+		 * - incrememnts posY and posX to move to next diagonal
+		 */
 		int posY = 0;
 		int posX = 0;
 		while (posY < board.length)
@@ -167,7 +215,12 @@ public class Normal extends Opponent
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountX == board.length && amountO == 0)
+			if (amountO == board.length - 1 && amountX == 0)
+			{
+				placeDiagonalOne(board);
+				return true;
+			}
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
 				placeDiagonalOne(board);
 				return true;
@@ -180,7 +233,10 @@ public class Normal extends Opponent
 		amountX = 0;
 		amountO = 0;
 		
-		//second check
+		/*
+		 * second check
+		 * ditto
+		 */
 		posY = 0;
 		posX = board.length - 1;
 		while (posY < board.length)
@@ -188,7 +244,12 @@ public class Normal extends Opponent
 			if (board[posY][posX] == 'X') amountX++;
 			if (board[posY][posX] == 'O') amountO++;
 			
-			if (amountX == board.length && amountO == 0)
+			if (amountO == board.length - 1 && amountX == 0)
+			{
+				placeDiagonalTwo(board);
+				return true;
+			}
+			else if (amountX == board.length - 1 && amountO == 0)
 			{
 				placeDiagonalTwo(board);
 				return true;
@@ -232,11 +293,11 @@ public class Normal extends Opponent
 	private void placeDiagonalTwo(char[][] board)
 	{
 		int posY = 0;
-		int posX = player.getBoard().getBoard().length - 1;
+		int posX = board.length - 1;
 		
 		while (posY < player.getBoard().getBoard().length)
 		{
-			if (board[posY][posX] != ' ')
+			if (board[posY][posX] == ' ')
 			{
 				player.getBoard().changeBoardValue(posY, posX, 'O');
 				return;

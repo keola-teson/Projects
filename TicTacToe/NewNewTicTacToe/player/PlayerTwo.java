@@ -1,6 +1,7 @@
 package player;
 
 import opponent.Opponent;
+import java.util.Scanner;
 
 /**
  * OPPONENT CLASS
@@ -11,6 +12,8 @@ import opponent.Opponent;
  */
 public class PlayerTwo extends Opponent
 {
+	private Scanner scanner = player.getScanner();
+	
 	/**
 	 * CONSTRUCTOR
 	 * @param board
@@ -26,22 +29,16 @@ public class PlayerTwo extends Opponent
 	 */
 	private int chooseRow()
 	{
-		player.getScanner().nextLine();
+		System.out.println("Choose a column (1 | 2 | 3):");
 		/*
 		 * loops until the player inputted a number wanted
 		 */
-		int posY = 0;
+		int posY = player.checkInput(scanner.nextLine());
 		while (posY < 1 || posY > 3)
 		{
+			System.out.println("That's not a valid position. Try again.\n");
 			System.out.println("Choose a row (1 | 2 | 3):");
-			try
-			{
-				posY = player.getScanner().nextInt();
-			}
-			catch (Exception e)
-			{
-				System.out.println("That is not a number. Try again.");
-			}
+			posY = player.checkInput(scanner.nextLine());
 		}
 		return posY;
 	}
@@ -52,22 +49,16 @@ public class PlayerTwo extends Opponent
 	 */
 	private int chooseColumn()
 	{
-		player.getScanner().nextLine();
+		System.out.println("Choose a row (1 | 2 | 3):");
 		/*
 		 * loops until the player inputted a number wanted
 		 */
-		int posX = 0;
+		int posX = player.checkInput(scanner.nextLine());
 		while (posX < 1 || posX > 3)
 		{
-			System.out.println("Choose a column (1 | 2 | 3):");
-			try
-			{
-				posX = player.getScanner().nextInt();
-			}
-			catch (Exception e)
-			{
-				System.out.println("That is not a number. Try again.");
-			}
+			System.out.println("That's not a valid position. Try again.\n");
+			System.out.println("Choose a row (1 | 2 | 3):");
+			posX = player.checkInput(scanner.nextLine());
 		}
 		return posX;
 	}

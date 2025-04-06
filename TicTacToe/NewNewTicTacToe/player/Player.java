@@ -33,21 +33,16 @@ public class Player
 	 */
 	private int chooseRow()
 	{
+		System.out.println("Choose a row (1 | 2 | 3):");
 		/*
 		 * loops until the player inputted a number wanted
 		 */
-		int posY = 0;
+		int posY = checkInput(scanner.nextLine());
 		while (posY < 1 || posY > 3)
 		{
+			System.out.println("That's not a valid position. Try again.\n");
 			System.out.println("Choose a row (1 | 2 | 3):");
-			try
-			{
-				posY = scanner.nextInt();
-			}
-			catch (Exception e)
-			{
-				System.out.println("That is not a number. Try again.");
-			}
+			posY = checkInput(scanner.nextLine());
 		}
 		return posY;
 	}
@@ -58,23 +53,35 @@ public class Player
 	 */
 	private int chooseColumn()
 	{
+		System.out.println("Choose a column (1 | 2 | 3):");
 		/*
 		 * loops until the player inputted a number wanted
 		 */
-		int posX = 0;
+		int posX = checkInput(scanner.nextLine());
 		while (posX < 1 || posX > 3)
 		{
+			System.out.println("That's not a valid position. Try again.\n");
 			System.out.println("Choose a column (1 | 2 | 3):");
-			try
-			{
-				posX = scanner.nextInt();
-			}
-			catch (Exception e)
-			{
-				System.out.println("That is not a number. Try again.");
-			}
+			posX = checkInput(scanner.nextLine());
 		}
 		return posX;
+	}
+	
+	/**
+	 * checks if Mr. Trauger or Daniel didn't put a number (bc ofc they didn't)
+	 * @param string
+	 * @return
+	 */
+	public int checkInput(String string)
+	{
+		try
+		{
+			return Integer.parseInt(string);
+		}
+		catch (Exception e)
+		{
+			return 0;
+		}
 	}
 	
 	/**
