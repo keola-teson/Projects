@@ -34,6 +34,7 @@ public class Hard extends Normal
 		if (board[1][1] == 'X' && board[0][0] == ' ')
 		{
 			player.getBoard().changeBoardValue(0, 0, 'O');
+			return;
 		}
 		
 		int posY = 0;
@@ -72,23 +73,61 @@ public class Hard extends Normal
 			return;
 		}
 		
-		// best move if the player puts X in corner (second move)
-		posY = 0;
-		posX = 0;
-		
-		while (posY <= 2)
+		if (lookForWins(board))
 		{
+			// best move if the player puts X in corner (second move)
+			posY = 0;
 			posX = 0;
-			while (posX <= 2)
+			
+			while (posY <= 2)
 			{
-				if (board[posY][posX] == 'X' && board[0][1] == ' ')
+				posX = 0;
+				while (posX <= 2)
 				{
-					player.getBoard().changeBoardValue(0, 1, 'O');
-					return;
+					if (board[posY][posX] == 'X' && board[0][1] == ' ')
+					{
+						player.getBoard().changeBoardValue(0, 1, 'O');
+						return;
+					}
+					posX += 2;
 				}
-				posX += 2;
+				posY += 2;
 			}
-			posY += 2;
 		}
+	}
+	
+	/**
+	 * looks for wins from not obvious positions
+	 * @param board
+	 */
+	private boolean lookForWins(char[][] board)
+	{
+		/**
+		 * ROW
+		 * looks for wins in the rows
+		 */
+		for (int i = 0; i < board.length; i++)
+		{
+			if (board[i][0] == 'O' && board[i][1] == ' ' && board[i][2] == ' ')
+			{
+				player.getBoard().changeBoardValue(i, 2, 'O');
+				return false;
+			}
+		}
+		
+		/**
+		 * COLUMN
+		 * looks for wins in the columns
+		 */
+		for (int i = 0; i < board[0].length; i++)
+		{
+			if (board[0][i] == 'O' && board[1][i] == ' ' && board[2][i] == ' ')
+			{
+				player.getBoard().changeBoardValue(2, i, 'O');
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
