@@ -1,6 +1,5 @@
 package main;
 
-import maze.Maze;
 import player.Player;
 import tile.Tile;
 
