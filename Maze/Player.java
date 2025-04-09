@@ -6,7 +6,6 @@ public class Player
 	private int collidedCount; // a count of the amount of times the player collided with the wall
 	private int posY; // the position of the player in the Y dimension
 	private int posX; // the position of the player in the X dimension
-	private Scanner scanner = new Scanner(System.in); // allows input
 	
 	/**
 	 * CONSTRUCTOR
@@ -78,9 +77,9 @@ public class Player
 	 * @param maze
 	 * @return true to continue the loop
 	 */
-	public void checkDirection(Maze maze)
+	public void checkDirection(Maze maze, Scanner scanner)
 	{
-		switch (chooseDirection()) // calls the chooseDirection() method to get the player direction
+		switch (chooseDirection(scanner)) // calls the chooseDirection() method to get the player direction
 		{
 			case "up":
 				if (getPosY() - 1 > -1) // checked for error protection
@@ -189,7 +188,7 @@ public class Player
 	 * allows player to choose direction
 	 * @return up, down, left, or right
 	 */
-	private String chooseDirection()
+	private String chooseDirection(Scanner scanner)
 	{
 		String direction = scanner.nextLine().toLowerCase(); // stores player input
 		
