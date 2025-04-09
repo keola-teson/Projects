@@ -82,4 +82,5 @@ public class Tile
 		}
 		return " "; // returned if a wall isn't revealed or there is nothing there
 	}
+	// if you are reading this clap before you start next class
 }
