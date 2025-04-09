@@ -10,7 +10,7 @@ public class MazeMain
 		while (player.getPosY() != 4 || player.getPosX() != 9)
 		{
 			maze.printMaze();
-			player.checkDirection(maze);
+			player.checkDirection(maze, new Scanner(System.in));
 		}
 		maze.getMaze()[0][0] = new Tile(false, false, player);
 		
