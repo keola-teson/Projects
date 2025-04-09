@@ -1,8 +1,3 @@
-package maze;
-
-import player.Player;
-import tile.Tile;
-
 public class Maze
 {
 	/* class attibutes */
