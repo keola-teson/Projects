@@ -9,7 +9,7 @@ public class Tile
 	/**
 	 * CONSTRUCTOR
 	 * constructs a wall
-	 * @param isWall ( set to true when this constructor is called)
+	 * @param isWall ( set to true when this constructor is called )
 	 */
 	public Tile(boolean isWall, boolean isRevealed, Player player)
 	{
