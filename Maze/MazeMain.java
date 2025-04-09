@@ -1,7 +1,3 @@
-package main;
-
-import player.Player;
-import tile.Tile;
 
 public class MazeMain
 {
