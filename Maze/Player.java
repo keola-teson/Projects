@@ -109,25 +109,29 @@ public class Player
 	 */
 	public void moveRight(Maze maze)
 	{
-		if (getPosX() + 1 < maze.getMaze()[getPosY()].length) // checked for error protection
+		int posX = getPosX();
+		int posY = getPosY();
+		GameTile[][] board = maze.getMaze();
+		
+		if (posX + 1 < board[posY].length) // checked for error protection
 		{
-			
-			if (maze.getMaze()[getPosY()][getPosX() + 1].isWall()) // checks if the tile right of the player is a wall
+			if (board[posY][posX + 1].isWall()) // checks if the tile right of the player is a wall
 			{
 				System.out.println("You hit a wall.");
 				
-				maze.getMaze()[getPosY()][getPosX() + 1].setRevealed(true); // changes the value of isRevealed for the tile to true
-																			// allows it to be printed
+				/* changes the value of isRevealed for the tile to true allows it to be printed */
+				board[posY][posX + 1].setRevealed(true);
 				
 				setCollidedCount(getCollidedCount() + 1); // increments collided count
 			}
 			else
 			{
-				maze.getMaze()[getPosY()][getPosX()].setPlayer(null); // gets rid of the player on the previous tile
-				maze.getMaze()[getPosY()][getPosX() + 1].setPlayer(this); // moves the player by moving the instance of this 
-																		  // class to the tile to the right
+				board[posY][posX].setPlayer(null); // gets rid of the player on the previous tile
 				
-				maze.getMaze()[getPosY()][getPosX()].setRevealed(true); // reveals path
+				/* moves the player by moving the instance of this class to the tile to the right */
+				board[posY][posX + 1].setPlayer(this);
+				
+				board[posY][posX].setRevealed(true); // reveals path
 				
 				setPosX(getPosX() + 1); // increments collided count
 			}
@@ -141,24 +145,29 @@ public class Player
 	 */
 	public void moveLeft(Maze maze)
 	{
-		if (getPosX() - 1 > -1) // checked for error protection
+		int posX = getPosX();
+		int posY = getPosY();
+		GameTile[][] board = maze.getMaze();
+		
+		if (posX - 1 > -1) // checked for error protection
 		{
-			if (maze.getMaze()[getPosY()][getPosX() - 1].isWall()) // checks if the tile left of the player is a wall
+			if (board[posY][posX - 1].isWall()) // checks if the tile left of the player is a wall
 			{
 				System.out.println("You hit a wall.");
 				
-				maze.getMaze()[getPosY()][getPosX() - 1].setRevealed(true); // changes the value of isRevealed for the tile to true
-																			// allows it to be printed
+				/* changes the value of isRevealed for the tile to true allows it to be printed */
+				board[posY][posX - 1].setRevealed(true);
 				
 				setCollidedCount(getCollidedCount() + 1); // increments collided count
 			}
 			else
 			{
-				maze.getMaze()[getPosY()][getPosX()].setPlayer(null); // gets rid of the player on the previous tile
-				maze.getMaze()[getPosY()][getPosX() - 1].setPlayer(this); // moves the player by moving the instance of this 
-																		  // class to the tile to the right
+				board[posY][posX].setPlayer(null); // gets rid of the player on the previous tile
 				
-				maze.getMaze()[getPosY()][getPosX()].setRevealed(true); // reveals path
+				/* moves the player by moving the instance of this class to the tile to the left */
+				board[posY][posX - 1].setPlayer(this);
+				
+				board[posY][posX].setRevealed(true); // reveals path
 				
 				setPosX(getPosX() - 1); // increments collided count
 			}
@@ -172,24 +181,29 @@ public class Player
 	 */
 	public void moveDown(Maze maze)
 	{
-		if (getPosY() + 1 < maze.getMaze()[getPosY()].length) // checked for error protection
+		int posX = getPosX();
+		int posY = getPosY();
+		GameTile[][] board = maze.getMaze();
+		
+		if (posY + 1 < board.length) // checked for error protection
 		{
-			if (maze.getMaze()[getPosY() + 1][getPosX()].isWall()) // checks if the tile below the player is a wall
+			if (board[posY + 1][posX].isWall()) // checks if the tile below the player is a wall
 			{
 				System.out.println("You hit a wall.");
 				
-				maze.getMaze()[getPosY() + 1][getPosX()].setRevealed(true); // changes the value of isRevealed for the tile to true
-																			// allows it to be printed
+				/* changes the value of isRevealed for the tile to true, allows it to be printed */
+				board[posY + 1][posX].setRevealed(true);
 				
 				setCollidedCount(getCollidedCount() + 1); // increments collided count
 			}
 			else
 			{
-				maze.getMaze()[getPosY()][getPosX()].setPlayer(null); // gets rid of the player on the previous tile
-				maze.getMaze()[getPosY() + 1][getPosX()].setPlayer(this); // moves the player by moving the instance of this 
-																		  // class to the tile below
+				board[posY][posX].setPlayer(null); // gets rid of the player on the previous tile
 				
-				maze.getMaze()[getPosY()][getPosX()].setRevealed(true); // reveals path
+				/* moves the player by moving the instance of this class to the tile below */
+				board[posY + 1][posX].setPlayer(this);
+				
+				board[posY][posX].setRevealed(true); // reveals path
 				
 				setPosY(getPosY() + 1); // increments posY
 			}
@@ -203,24 +217,29 @@ public class Player
 	 */
 	public void moveUp(Maze maze)
 	{
-		if (getPosY() - 1 > -1) // checked for error protection
+		int posX = getPosX();
+		int posY = getPosY();
+		GameTile[][] board = maze.getMaze();
+		
+		if (posY - 1 > -1) // checked for error protection
 		{
-			if (maze.getMaze()[getPosY() - 1][getPosX()].isWall()) // checks if the tile above the player is a wall
+			if (board[posY - 1][posX].isWall()) // checks if the tile above the player is a wall
 			{
 				System.out.println("You hit a wall.");
 				
-				maze.getMaze()[getPosY() - 1][getPosX()].setRevealed(true); // changes the value of isRevealed for the tile to true
-				// allows it to be printed
+				/* changes the value of isRevealed for the tile to true, allows it to be printed */
+				board[posY - 1][posX].setRevealed(true);
 				
 				setCollidedCount(getCollidedCount() + 1); // increments collided count
 			}
 			else
 			{
-				maze.getMaze()[getPosY()][getPosX()].setPlayer(null); // gets rid of the player on the previous tile
-				maze.getMaze()[getPosY() - 1][getPosX()].setPlayer(this); // moves the player by moving the instance of this 
-																		  // class to the tile above
+				board[posY][posX].setPlayer(null); // gets rid of the player on the previous tile
 				
-				maze.getMaze()[getPosY()][getPosX()].setRevealed(true); // reveals path
+				/* moves the player by moving the instance of this class to the tile above */
+				board[posY - 1][posX].setPlayer(this);
+				
+				board[posY][posX].setRevealed(true); // reveals path
 				
 				setPosY(getPosY() - 1); // decrements posY
 			}
