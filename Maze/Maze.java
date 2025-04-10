@@ -5,7 +5,7 @@
 public class Maze
 {
 	/* class attibutes */
-	private Tile[][] maze; // board
+	private GameTile[][] maze; // board
 	
 	/**
 	 * CONSTRUCTOR
@@ -20,7 +20,7 @@ public class Maze
 	 * GETTER
 	 * @return the maze
 	 */
-	public Tile[][] getMaze()
+	public GameTile[][] getMaze()
 	{
 		return maze;
 	}
@@ -29,7 +29,7 @@ public class Maze
 	 * SETTER
 	 * @param maze
 	 */
-	public void setMaze(Tile[][] maze)
+	public void setMaze(GameTile[][] maze)
 	{
 		this.maze = maze;
 	}
@@ -40,10 +40,10 @@ public class Maze
 	public void printMaze()
 	{
 		// prints each element one by one row by row and surrounds it in brackets
-		for (Tile[] row : maze)
+		for (GameTile[] row : maze)
 		{
 			System.out.print("[");
-			for (Tile tile : row)
+			for (GameTile tile : row)
 			{
 				System.out.print(tile);
 			}
@@ -57,9 +57,9 @@ public class Maze
   	 * @param board
 	 * @return the updated 2D Tile array
 	 */
-	public Tile[][] fillMaze(Player player, char[][] board)
+	public GameTile[][] fillMaze(Player player, char[][] board)
 	{
-		maze = new Tile[board.length][board[0].length];
+		maze = new GameTile[board.length][board[0].length];
 		
 		// goes row by row
 		for (int i = 0; i < maze.length; i++)
@@ -68,15 +68,15 @@ public class Maze
 			{
 				if (board[i][j] == ' ')
 				{
-					maze[i][j] = new Tile(false, false, null);
+					maze[i][j] = new GameTile(false, false, null);
 				}
 				if (board[i][j] == '|')
 				{
-					maze[i][j] = new Tile(true, false, null);
+					maze[i][j] = new GameTile(true, false, null);
 				}
 				if (board[i][j] == '8')
 				{
-					maze[i][j] = new Tile(false, false, player);
+					maze[i][j] = new GameTile(false, false, player);
 				}
 			}
 		}
