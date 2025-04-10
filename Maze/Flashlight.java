@@ -24,9 +24,9 @@ public class Flashlight extends Player
 	public void checkDirection(Maze maze, Scanner scanner)
 	{
 		// hides every tiles
-		for (Tile[] set : maze.getMaze())
+		for (GameTile[] set : maze.getMaze())
 		{
-			for (Tile tile : set)
+			for (GameTile tile : set)
 			{
 				tile.setRevealed(false);
 			}
