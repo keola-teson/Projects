@@ -1,9 +1,4 @@
 import java.util.Scanner;
-
-import maze.Maze;
-import player.Flashlight;
-import player.Player;
-
 /**
  * Where the game is played
  */
