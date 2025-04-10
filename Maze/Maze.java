@@ -54,6 +54,8 @@ public class Maze
 	/**
 	 * fills the 2D Tile array with Tile objects to generate walls and path
 	 * @param player
+  	 * @param board
+	 * @return the updated 2D Tile array
 	 */
 	public Tile[][] fillMaze(Player player, char[][] board)
 	{
