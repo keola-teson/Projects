@@ -1,3 +1,7 @@
+/**
+ * MAZE
+ * controlls the printing and filling of the maze
+ */
 public class Maze
 {
 	/* class attibutes */
@@ -7,9 +11,9 @@ public class Maze
 	 * CONSTRUCTOR
 	 * @param maze
 	 */
-	public Maze(Tile[][] maze)
+	public Maze(char[][] board, Player player)
 	{
-		this.maze = maze;
+		this.maze = fillMaze(player, board);
 	}
 
 	/**
@@ -51,35 +55,31 @@ public class Maze
 	 * fills the 2D Tile array with Tile objects to generate walls and path
 	 * @param player
 	 */
-	public void fillMaze(Player player)
+	public Tile[][] fillMaze(Player player, char[][] board)
 	{
+		maze = new Tile[board.length][board[0].length];
+		
 		// goes row by row
 		for (int i = 0; i < maze.length; i++)
 		{
 			for (int j = 0; j < maze[i].length; j++)
 			{
-				// auto generates an empty path
-				maze[i][j] = new Tile(false, false, null);
-				
-				// puts a wall where i want (i == posY and j == posX)
-				if ((i == 0 && j == 1) || (i == 1 && j == 1) || (i == 3 && j == 1) || (i == 4 && j == 1) ||
-					(i == 0 && j == 2) || (i == 3 && j == 2) || 
-					(i == 2 && j == 3) ||
-					(i == 4 && j == 4) || 
-					(i == 1 && j == 5) || (i == 3 && j == 5) || 
-					(i == 1 && j == 6) ||
-					(i == 2 && j == 7) || (i == 3 && j == 7) || 
-					(i == 1 && j == 8) || 
-					(i == 0 && j == 9) || (i == 1 && j == 9) || (i == 2 && j == 9) || (i == 3 && j == 9))
+				if (board[i][j] == ' ')
+				{
+					maze[i][j] = new Tile(false, false, null);
+				}
+				if (board[i][j] == '|')
 				{
 					maze[i][j] = new Tile(true, false, null);
 				}
-				// places the player wherever posY and posX attributes determine
-				else if (i == player.getPosY() && j == player.getPosX())
+				if (board[i][j] == '8')
 				{
 					maze[i][j] = new Tile(false, false, player);
 				}
 			}
 		}
+		printMaze();
+		
+		return maze;
 	}
 }
