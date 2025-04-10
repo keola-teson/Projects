@@ -1,4 +1,7 @@
-
+/**
+ * TILE
+ * controls tile attributes like isRevealed, isWall, and if it holds the player
+ */
 public class Tile
 {
 	/* CLASS ATTRIBUTES */
@@ -9,7 +12,7 @@ public class Tile
 	/**
 	 * CONSTRUCTOR
 	 * constructs a wall
-	 * @param isWall ( set to true when this constructor is called )
+	 * @param isWall ( set to true when this constructor is called)
 	 */
 	public Tile(boolean isWall, boolean isRevealed, Player player)
 	{
@@ -70,7 +73,7 @@ public class Tile
 	{
 		if (player != null)
 		{
-			return "B"; // returned if the current tile holds the player
+			return "8"; // returned if the current tile holds the player
 		}
 		else if (isWall && isRevealed)
 		{
@@ -82,5 +85,5 @@ public class Tile
 		}
 		return " "; // returned if a wall isn't revealed or there is nothing there
 	}
-	// if you are reading this clap before you start next class
+	// if you are reading this comment on Ella's submission "Daniel told me to do this"
 }
