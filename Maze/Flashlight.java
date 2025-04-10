@@ -34,104 +34,109 @@ public class Flashlight extends Player
 		
 		int posY;
 		int posX;
+		GameTile[][] board;
 		
 		switch (chooseDirection(scanner))
 		{
 			case "up":
 				moveUp(maze);
 				
+				board = maze.getMaze();
 				posY = getPosY();
 				posX = getPosX();
 				
-				while (posY > -1 && !maze.getMaze()[posY][posX].isWall()) // loops until light hits error or wall
+				while (posY > -1 && !board[posY][posX].isWall()) // loops until light hits error or wall
 				{
 					/* reveals tiles left of the light */
 					if (posX - 1 > -1)
-						maze.getMaze()[posY][posX - 1].setRevealed(true);
+						board[posY][posX - 1].setRevealed(true);
 					
 					/* reveals tiels right of the light */
-					if (posX + 1 < maze.getMaze()[posY].length)
-						maze.getMaze()[posY][posX + 1].setRevealed(true);
+					if (posX + 1 < board[posY].length)
+						board[posY][posX + 1].setRevealed(true);
 					
 					posY--;
 				}
 				
 				if (posY > -1) // error protection
-					if (maze.getMaze()[posY][posX].isWall())
-						maze.getMaze()[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
+					if (board[posY][posX].isWall())
+						board[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
 				
 				break;
 			
 			case "down":
 				moveDown(maze);
-				
+
+				board = maze.getMaze();
 				posY = getPosY();
 				posX = getPosX();
 				
-				while (posY < maze.getMaze().length && !maze.getMaze()[posY][posX].isWall()) // loops until light hits error or wall
+				while (posY < board.length && !board[posY][posX].isWall()) // loops until light hits error or wall
 				{
 					/* reveals tiles left of the light */
 					if (posX - 1 > -1)
-						maze.getMaze()[posY][posX - 1].setRevealed(true);
+						board[posY][posX - 1].setRevealed(true);
 					
 					/* reveals tiles right of the light */
 					if (posX + 1 < maze.getMaze()[posY].length)
-						maze.getMaze()[posY][posX + 1].setRevealed(true);
+						board[posY][posX + 1].setRevealed(true);
 					
 					posY++;
 				}
 				
-				if (posY < maze.getMaze().length) // error protection
-					if (maze.getMaze()[posY][posX].isWall())
-						maze.getMaze()[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
+				if (posY < board.length) // error protection
+					if (board[posY][posX].isWall())
+						board[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
 				
 				break;
 				
 			case "left":
 				moveLeft(maze);
 				
+				board = maze.getMaze();
 				posY = getPosY();
 				posX = getPosX();
 				
-				while (posX > -1 && !maze.getMaze()[posY][posX].isWall()) // loops until light hits error or wall
+				while (posX > -1 && !board[posY][posX].isWall()) // loops until light hits error or wall
 				{
 					/* reveals tiles above the light */
 					if (posY - 1 > - 1)
-						maze.getMaze()[posY - 1][posX].setRevealed(true);
+						board[posY - 1][posX].setRevealed(true);
 					
 					/* reveals tiles below the light */
 					if (posY + 1 < maze.getMaze().length)
-						maze.getMaze()[posY + 1][posX].setRevealed(true);
+						board[posY + 1][posX].setRevealed(true);
 					posX--;
 				}
 				
 				if (posX > - 1) // error protection
-					if (maze.getMaze()[posY][posX].isWall())
-						maze.getMaze()[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
+					if (board[posY][posX].isWall())
+						board[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
 				
 				break;
 				
 			case "right":
 				moveRight(maze);
 				
+				board = maze.getMaze();
 				posY = getPosY();
 				posX = getPosX();
 				
-				while (posX < maze.getMaze()[posY].length && !maze.getMaze()[posY][posX].isWall()) // loops until light hits error or wall
+				while (posX < board[posY].length && !board[posY][posX].isWall()) // loops until light hits error or wall
 				{
 					/* reveals tiles above the light */
 					if (posY - 1 > - 1)
-						maze.getMaze()[posY - 1][posX].setRevealed(true);
+						board[posY - 1][posX].setRevealed(true);
 					
 					/* reveals tiles below the light */
 					if (posY + 1 < maze.getMaze().length)
-						maze.getMaze()[posY + 1][posX].setRevealed(true);
+						board[posY + 1][posX].setRevealed(true);
 					posX++;
 				}
 				
-				if (posX < maze.getMaze()[posY].length) // error protection
-					if (maze.getMaze()[posY][posX].isWall())
-						maze.getMaze()[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
+				if (posX < board[posY].length) // error protection
+					if (board[posY][posX].isWall())
+						board[posY][posX].setRevealed(true); // reveals wall at the end of the tunnel
 				
 				break;
 		}
