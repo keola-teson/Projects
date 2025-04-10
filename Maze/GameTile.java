@@ -2,7 +2,7 @@
  * TILE
  * controls tile attributes like isRevealed, isWall, and if it holds the player
  */
-public class Tile
+public class GameTile
 {
 	/* CLASS ATTRIBUTES */
 	private boolean isRevealed; // flips when the player hits it
@@ -14,7 +14,7 @@ public class Tile
 	 * constructs a wall
 	 * @param isWall ( set to true when this constructor is called)
 	 */
-	public Tile(boolean isWall, boolean isRevealed, Player player)
+	public GameTile(boolean isWall, boolean isRevealed, Player player)
 	{
 		this.isWall = isWall;
 		this.isRevealed = isRevealed;
@@ -75,15 +75,18 @@ public class Tile
 		{
 			return "8"; // returned if the current tile holds the player
 		}
-		else if (isWall && isRevealed)
+		else if (isRevealed)
 		{
-			return "|"; // returned if the current wall is revealed
-		}
-		else if (!isWall && isRevealed)
-		{
-			return "O"; // returned when the path was walked on
+			if (isWall)
+			{
+				return "|"; // returned if a wall is revealed
+			}
+			else
+			{
+				return "O"; // returned if a path is revealed
+			}
 		}
 		return " "; // returned if a wall isn't revealed or there is nothing there
 	}
-	// if you are reading this comment on Ella's submission "Daniel told me to do this"
+	// if you are reading this clap before you start next class
 }
